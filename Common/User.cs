@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Igtampe.Clothespin.Common.Tracking;
 
 namespace Igtampe.Clothespin.Common {
 
@@ -16,6 +17,9 @@ namespace Igtampe.Clothespin.Common {
 
         /// <summary>Password for this user</summary>
         public string Password { get; set; } = "";
+
+        /// <summary>List of Persons linked to this user</summary>
+        public List<Person> Persons { get; set; } = new();
 
         /// <summary>Checks a given password for this user</summary>
         /// <param name="Check"></param>
