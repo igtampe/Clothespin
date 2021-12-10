@@ -36,7 +36,7 @@ namespace Igtampe.Clothespin.Common.Clothes {
         public List<Outfit> Outfits { get; set; } = new();
 
         /// <summary>Indicates weather this Wearable is deleted or not</summary>
-        public bool Deleted = false;
+        public bool Deleted { get; set; } = false;
         
     }
 }
