@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Igtampe.Clothespin.Common.Clothes {
+﻿namespace Igtampe.Clothespin.Common.Clothes {
 
     /// <summary>A Wearable item that's washable</summary>
     public abstract class Washable<E>:Wearable<E> where E : Enum {

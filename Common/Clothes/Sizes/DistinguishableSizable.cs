@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Igtampe.Clothespin.Common.Clothes.Sizes {
+﻿namespace Igtampe.Clothespin.Common.Clothes.Sizes {
 
     //This Enum is here essentially because SOME Clothing sizes distinguish by age and gender
     //Because non-binary clothing is relatively new in some spaces and sizing is still somewhat vague and non-standard I will not be putting it here

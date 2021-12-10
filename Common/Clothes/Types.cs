@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Igtampe.Clothespin.Common.Clothes.Types {
+﻿namespace Igtampe.Clothespin.Common.Clothes.Types {
 
     //Hehe this holds all the types. Maybe it should've been a class, but putting this in a namespace makes it easier to import.
     //This might break some convention but oops.

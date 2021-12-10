@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Igtampe.Clothespin.Common.Clothes.Types;
+﻿using Igtampe.Clothespin.Common.Clothes.Types;
 using Igtampe.Clothespin.Common.Clothes.Sizes;
 
 namespace Igtampe.Clothespin.Common.Clothes.Items {
