@@ -9,7 +9,7 @@ using Igtampe.Clothespin.Common.Clothes.Sizes;
 namespace Igtampe.Clothespin.Common.Clothes.Items {
 
     /// <summary>Holds a pair of socks</summary>
-    public class Socks : Washable<SockType>, Sizeable {
+    public class Socks : Washable<SockType>, Sizable {
 
         /// <summary>Size of these socks</summary>
         public string Size { get; set; } = "";

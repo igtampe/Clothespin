@@ -9,7 +9,7 @@ using Igtampe.Clothespin.Common.Clothes.Types;
 namespace Igtampe.Clothespin.Common.Clothes.Items {
 
     /// <summary>Holds a shirt</summary>
-    public class Shirt : Washable<ShirtType>, DistinguishableSizeable {
+    public class Shirt : Washable<ShirtType>, DistinguishableSizable {
 
         /// <summary>Distinguisher for the size of this shirt</summary>
         public SizeDistinguisher Distinguisher { get; set; } = SizeDistinguisher.UNIVERSAL;

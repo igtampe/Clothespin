@@ -9,7 +9,7 @@ using Igtampe.Clothespin.Common.Clothes.Types;
 namespace Igtampe.Clothespin.Common.Clothes.Items {
 
     /// <summary>Holds a Belt</summary>
-    public class Belt : Wearable<BeltType>, Sizeable {
+    public class Belt : Wearable<BeltType>, Sizable {
 
         /// <summary>Size of this belt (Circumference in Inches if US)</summary>
         public string Size { get; set; } = "";

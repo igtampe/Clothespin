@@ -11,7 +11,7 @@ using Igtampe.Clothespin.Common.Clothes.Types;
 namespace Igtampe.Clothespin.Common.Clothes.Items {
 
     /// <summary>Holds a pair of shoes</summary>
-    public class Shoes : Wearable<ShoeType>, DistinguishableSizeable {
+    public class Shoes : Wearable<ShoeType>, DistinguishableSizable {
 
         /// <summary>Distinguisher for these shoes</summary>
         public SizeDistinguisher Distinguisher { get; set; } = SizeDistinguisher.UNIVERSAL;

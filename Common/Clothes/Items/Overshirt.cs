@@ -9,7 +9,7 @@ using Igtampe.Clothespin.Common.Clothes.Types;
 namespace Igtampe.Clothespin.Common.Clothes.Items {
 
     /// <summary>Holds something that goes over a shirt (Like a Jacket, Coat, or Sweater)</summary>
-    public class Overshirt : Washable<OvershirtType>, DistinguishableSizeable {
+    public class Overshirt : Washable<OvershirtType>, DistinguishableSizable {
 
         /// <summary>Distinguisher of the size of this overshirt item</summary>
         public SizeDistinguisher Distinguisher { get; set; }

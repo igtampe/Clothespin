@@ -13,7 +13,7 @@ namespace Igtampe.Clothespin.Common.Clothes.Sizes {
     /// <summary>Size distinguisher for a size (IE Age or Gender)</summary>
     public enum SizeDistinguisher {
 
-        /// <summary>For sizeable clothing items that do not distinguish *or* are purporsefully not distinguished (IE nonbinary or something)</summary>
+        /// <summary>For sizable clothing items that do not distinguish *or* are purporsefully not distinguished (IE nonbinary or something)</summary>
         UNIVERSAL = 0, //The presence of this can violate ISP but is here for edge cases of generally distinguished clothing that is not 
 
         /// <summary>For men's sized clothing</summary>
@@ -30,8 +30,8 @@ namespace Igtampe.Clothespin.Common.Clothes.Sizes {
 
     }
 
-    /// <summary>A sizeable item, where the size may depend on a <see cref="SizeDistinguisher"/></summary>
-    public interface DistinguishableSizeable : Sizeable {
+    /// <summary>A sizable item, where the size may depend on a <see cref="SizeDistinguisher"/></summary>
+    public interface DistinguishableSizable : Sizable {
 
         /// <summary>Distinguisher for the size of this item</summary>
         public SizeDistinguisher Distinguisher { get; set; }

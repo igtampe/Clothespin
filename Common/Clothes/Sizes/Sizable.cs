@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Igtampe.Clothespin.Common.Clothes.Sizes {
 
     /// <summary>A Wearable that is also sizeable</summary>
-    public interface Sizeable {
+    public interface Sizable {
 
         /// <summary>Size of the item</summary>
         public string Size { get; set; }
