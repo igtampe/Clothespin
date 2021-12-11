@@ -12,6 +12,7 @@
         /// <summary>User tied to this Session</summary>
         public string UserID { get; }
 
+        /// <summary>Whether or not this session is expired.</summary>
         public bool Expired => DateTime.Now > ExpirationDate;
 
         /// <summary>Creates a session for the given UserID</summary>

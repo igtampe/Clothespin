@@ -20,7 +20,7 @@
         private SessionManager() => Sessions = new HashSet<Session>();
 
         /// <summary>Logs specified user in to a new session.</summary>
-        /// <param name="S"></param>
+        /// <param name="UserID">ID of the user to sign in</param>
         /// <returns>GUID of the added session</returns>
         public Guid LogIn(string UserID) {
             Session S;
