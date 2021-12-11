@@ -71,7 +71,7 @@ namespace Igtampe.Clothespin.API.Controllers {
             if (S is null) { return BadRequest("Invalid session"); }
 
             //Check the password
-            User U = await DB.User.FirstAsync(U => U.Username == S.UserID && U.Password == Request.Current);
+            User? U = await DB.User.FirstOrDefaultAsync(U => U.Username == S.UserID && U.Password == Request.Current);
             if (U is null) { return BadRequest("Incorrect current password"); }
 
             U.Password = Request.New;
