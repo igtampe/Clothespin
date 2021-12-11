@@ -9,7 +9,7 @@ namespace Igtampe.Clothespin.Common.Tracking {
         public Outfit? Outfit { get; set; }
 
         /// <summary>Day this outfit was worn</summary>
-        public DateOnly? Date { get; set; }
+        public DateTime? Date { get; set; }
 
         /// <summary>Owner of this item</summary>
         public Person? Owner { get; set; }
