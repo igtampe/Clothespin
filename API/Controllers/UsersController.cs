@@ -3,19 +3,25 @@ using Igtampe.Clothespin.Common;
 using Igtampe.Clothespin.Data;
 using Igtampe.ChopoSessionManager;
 using Igtampe.Clothespin.API.Requests;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 namespace Igtampe.Clothespin.API.Controllers {
+    
+    /// <summary>Controller that handles User operations</summary>
     [Route("API/Users")]
     [ApiController]
     public class UsersController : ControllerBase {
 
         private readonly ClothespinContext DB;
 
+        /// <summary>Creates a User Controller</summary>
+        /// <param name="Context"></param>
         public UsersController(ClothespinContext Context) => DB = Context;
 
         // POST api/Users
+        /// <summary>Handles logging in to Clothespin</summary>
+        /// <param name="Request">Request with a User and Password attempt to log in</param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> LogIn(UserRequest Request) {
             if (Request.Username is null || Request.Password is null) { return BadRequest("Username or Password is null"); }
@@ -29,6 +35,9 @@ namespace Igtampe.Clothespin.API.Controllers {
            
         }
 
+        /// <summary>Handles user registration</summary>
+        /// <param name="Request">User and password combination to create</param>
+        /// <returns></returns>
         // POST api/Users/register
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserRequest Request) {
@@ -47,6 +56,9 @@ namespace Igtampe.Clothespin.API.Controllers {
 
         }
 
+        /// <summary>Handles user password changes</summary>
+        /// <param name="Request">Request with a logged in user's session, and their current and new passwords</param>
+        /// <returns></returns>
         // PUT api/Users
         [HttpPut]
         public async Task<IActionResult> Update(ChangePasswordRequest Request) {
@@ -70,10 +82,16 @@ namespace Igtampe.Clothespin.API.Controllers {
 
         }
 
+        /// <summary>Handles user logout</summary>
+        /// <param name="SessionID">Session to log out of</param>
+        /// <returns></returns>
         // POST api/Users/out
         [HttpPost("out")]
         public async Task<IActionResult> LogOut([FromBody] Guid SessionID) => Ok(await Task.Run(() => SessionManager.Manager.LogOut(SessionID)));
 
+        /// <summary>Handles user logout of *all* sessions</summary>
+        /// <param name="SessionID">Session that wants to log out of all tied sessions</param>
+        /// <returns></returns>
         // POST api/Users/outall
         [HttpPost("outall")]
         public async Task<IActionResult> LogOutAll([FromBody] Guid SessionID) {

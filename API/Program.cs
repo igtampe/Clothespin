@@ -1,5 +1,8 @@
 using Microsoft.OpenApi.Models;
 using Igtampe.Clothespin.Data;
+using Igtampe.Clothespin.Common;
+using Igtampe.Clothespin.Common.Clothes.Items;
+using Igtampe.Clothespin.Common.Tracking;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +26,7 @@ builder.Services.AddSwaggerGen(options => {
             //Url = new Uri("https://example.com/license") //TODO: Actually specify the license once this is done
         }
     });
+    options.IncludeXmlComments("./API.xml");
 });
 
 builder.Services.AddDbContext<ClothespinContext>();

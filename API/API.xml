@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>API</name>
+    </assembly>
+    <members>
+        <member name="T:Igtampe.Clothespin.API.Controllers.UsersController">
+            <summary>Controller that handles User operations</summary>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.UsersController.#ctor(Igtampe.Clothespin.Data.ClothespinContext)">
+            <summary>Creates a User Controller</summary>
+            <param name="Context"></param>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.UsersController.LogIn(Igtampe.Clothespin.API.Requests.UserRequest)">
+            <summary>Handles logging in to Clothespin</summary>
+            <param name="Request">Request with a User and Password attempt to log in</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.UsersController.Register(Igtampe.Clothespin.API.Requests.UserRequest)">
+            <summary>Handles user registration</summary>
+            <param name="Request">User and password combination to create</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.UsersController.Update(Igtampe.Clothespin.API.Requests.ChangePasswordRequest)">
+            <summary>Handles user password changes</summary>
+            <param name="Request">Request with a logged in user's session, and their current and new passwords</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.UsersController.LogOut(System.Guid)">
+            <summary>Handles user logout</summary>
+            <param name="SessionID">Session to log out of</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.UsersController.LogOutAll(System.Guid)">
+            <summary>Handles user logout of *all* sessions</summary>
+            <param name="SessionID">Session that wants to log out of all tied sessions</param>
+            <returns></returns>
+        </member>
+        <member name="T:Igtampe.Clothespin.API.Requests.AuthenticatedRequest">
+            <summary>A request that is Authenticated</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.AuthenticatedRequest.SessionID">
+            <summary>GUID of the Session that sent this request</summary>
+        </member>
+        <member name="T:Igtampe.Clothespin.API.Requests.ChangePasswordRequest">
+            <summary>Authenticated request to change a password</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.ChangePasswordRequest.Current">
+            <summary>Current password</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.ChangePasswordRequest.New">
+            <summary>New Password</summary>
+        </member>
+        <member name="T:Igtampe.Clothespin.API.Requests.UserRequest">
+            <summary>Request with a username and a password (either to check or register)</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.UserRequest.Username">
+            <summary>Username of this request</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.UserRequest.Password">
+            <summary>Password of this request</summary>
+        </member>
+        <member name="T:Igtampe.ChopoSessionManager.Session">
+            <summary>Holds a Neco Session</summary>
+        </member>
+        <member name="P:Igtampe.ChopoSessionManager.Session.ID">
+            <summary>ID of this session</summary>
+        </member>
+        <member name="P:Igtampe.ChopoSessionManager.Session.ExpirationDate">
+            <summary>Time at which this session will no longer be valid</summary>
+        </member>
+        <member name="P:Igtampe.ChopoSessionManager.Session.UserID">
+            <summary>User tied to this Session</summary>
+        </member>
+        <member name="M:Igtampe.ChopoSessionManager.Session.#ctor(System.String)">
+            <summary>Creates a session for the given UserID</summary>
+            <param name="UserID"></param>
+        </member>
+        <member name="M:Igtampe.ChopoSessionManager.Session.ExtendSession">
+            <summary>Extends the Session expiration date to 15 minutes after now</summary>
+        </member>
+        <member name="M:Igtampe.ChopoSessionManager.Session.Equals(System.Object)">
+            <summary>Compares this Session to another object</summary>
+            <param name="obj"></param>
+            <returns>True if and only if object is a session and the ID matches</returns>
+        </member>
+        <member name="M:Igtampe.ChopoSessionManager.Session.GetHashCode">
+            <summary>Gets hashcode for this session</summary>
+            <returns><see cref="P:Igtampe.ChopoSessionManager.Session.ID"/>'s hashcode</returns>
+        </member>
+        <member name="T:Igtampe.ChopoSessionManager.SessionManager">
+            <summary>Session Manager for Neco</summary>
+        </member>
+        <member name="F:Igtampe.ChopoSessionManager.SessionManager.SingletonSM">
+            <summary>Internal Singleton Session Manager object</summary>
+        </member>
+        <member name="P:Igtampe.ChopoSessionManager.SessionManager.Manager">
+            <summary>Gets the static, singleton session manager for Neco</summary>
+        </member>
+        <member name="F:Igtampe.ChopoSessionManager.SessionManager.Sessions">
+            <summary>Collection of all sessions in this manager</summary>
+        </member>
+        <member name="P:Igtampe.ChopoSessionManager.SessionManager.Count">
+            <summary>Amount of sessions in the collection (including those that are expired)</summary>
+        </member>
+        <member name="M:Igtampe.ChopoSessionManager.SessionManager.#ctor">
+            <summary>Internal constructor to create a session manager</summary>
+        </member>
+        <member name="M:Igtampe.ChopoSessionManager.SessionManager.LogIn(System.String)">
+            <summary>Logs specified user in to a new session.</summary>
+            <param name="S"></param>
+            <returns>GUID of the added session</returns>
+        </member>
+        <member name="M:Igtampe.ChopoSessionManager.SessionManager.FindSession(System.Guid)">
+            <summary>Returns a session with sepcified ID. 
+            If the Session is expired, it returns null, and removes the session from the collection.
+            Otherwise, it extends the session before returning it.</summary>
+            <param name="ID"></param>
+            <returns>Returns a session if one exists, if not NULL</returns>
+        </member>
+        <member name="M:Igtampe.ChopoSessionManager.SessionManager.ExtendSession(System.Guid)">
+            <summary>Extends a session with given UID</summary>
+            <returns>True if a session was found and it was able to be extended. False otherwise</returns>
+        </member>
+        <member name="M:Igtampe.ChopoSessionManager.SessionManager.LogOut(System.Guid)">
+            <summary>Removes a session with specified ID</summary>
+            <param name="ID"></param>
+            <returns>Returns true if the session was found and was removed, false otherwise</returns>
+        </member>
+        <member name="M:Igtampe.ChopoSessionManager.SessionManager.LogOutAll(System.String)">
+            <summary>Removes all sessions for the specified user</summary>
+            <param name="UserID"></param>
+            <returns>Number of sessions logged out of</returns>
+        </member>
+        <member name="M:Igtampe.ChopoSessionManager.SessionManager.RemoveExpiredSessions">
+            <summary>Removes all expired sessions from the collection of active sessions</summary>
+            <returns>Amount of removed sessions</returns>
+        </member>
+        <member name="M:Igtampe.ChopoSessionManager.SessionManager.SessionRemoverThread(System.Int32)">
+            <summary>Routine to periodically remove all expired sessions from the collection</summary>
+        </member>
+    </members>
+</doc>
