@@ -72,6 +72,9 @@
         <member name="P:Igtampe.ChopoSessionManager.Session.UserID">
             <summary>User tied to this Session</summary>
         </member>
+        <member name="P:Igtampe.ChopoSessionManager.Session.Expired">
+            <summary>Whether or not this session is expired.</summary>
+        </member>
         <member name="M:Igtampe.ChopoSessionManager.Session.#ctor(System.String)">
             <summary>Creates a session for the given UserID</summary>
             <param name="UserID"></param>
@@ -108,7 +111,7 @@
         </member>
         <member name="M:Igtampe.ChopoSessionManager.SessionManager.LogIn(System.String)">
             <summary>Logs specified user in to a new session.</summary>
-            <param name="S"></param>
+            <param name="UserID">ID of the user to sign in</param>
             <returns>GUID of the added session</returns>
         </member>
         <member name="M:Igtampe.ChopoSessionManager.SessionManager.FindSession(System.Guid)">
