@@ -1,4 +1,5 @@
 ﻿using Igtampe.Clothespin.Common.Tracking;
+using System.Text.Json.Serialization;
 
 namespace Igtampe.Clothespin.Common.Clothes {
 
@@ -28,6 +29,7 @@ namespace Igtampe.Clothespin.Common.Clothes {
         public Person? Owner { get; set; }
 
         /// <summary>List of Outfits this Wearable is in</summary>
+        [JsonIgnore]
         public List<Outfit> Outfits { get; set; } = new();
 
         /// <summary>Indicates weather this Wearable is deleted or not</summary>
