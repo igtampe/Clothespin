@@ -3,7 +3,7 @@ using Igtampe.Clothespin.Common.Clothes.Sizes;
 
 namespace Igtampe.Clothespin.Common.Clothes.Items {
     /// <summary>Holds a pair of pants</summary>
-    public class Pants : Wearable<PantsType>, DistinguishableSizable {
+    public class Pants : Washable<PantsType>, DistinguishableSizable {
 
         /// <summary>Distinguisher of the size of these pants</summary>
         public SizeDistinguisher Distinguisher { get; set; } = SizeDistinguisher.UNIVERSAL;
