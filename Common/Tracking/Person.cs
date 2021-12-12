@@ -4,10 +4,13 @@ using Igtampe.Clothespin.Common.Clothes;
 namespace Igtampe.Clothespin.Common.Tracking {
 
     /// <summary>Represents a person who owns multiple clothing items, and outfits</summary>
-    public class Person : Identifiable, Nameable {
+    public class Person : Identifiable, Nameable, Depictable {
 
         /// <summary>Name of the person</summary>
         public string Name { get; set; } = "";
+
+        /// <summary>Image URL for this person</summary>
+        public string ImageURL { get; set; } = "";
 
         /// <summary>A person's Tied User account</summary>
         public User? TiedUser { get; set; }
