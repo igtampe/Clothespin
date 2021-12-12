@@ -1,4 +1,5 @@
 ﻿using Igtampe.Clothespin.Common.Clothes.Items;
+using Igtampe.Clothespin.Common.Tracking;
 
 namespace Igtampe.Clothespin.Common.Clothes {
 
@@ -10,6 +11,9 @@ namespace Igtampe.Clothespin.Common.Clothes {
 
         /// <summary>Description of this outfit</summary>
         public string Description { get; set; } = "";
+
+        /// <summary>Owner of this outfit</summary>
+        public Person? Owner { get; set; }
 
         /// <summary>Shirt worn on this outfit</summary>
         public Shirt? Shirt { get; set; }
@@ -31,6 +35,20 @@ namespace Igtampe.Clothespin.Common.Clothes {
 
         /// <summary>List of accessories worn on this outfit</summary>
         public List<Accessory> Accessories { get; set; } = new();
+
+        public WashState OutfitState() { 
+            
+            List<WashState> StateList = new();
+            StateList.Add(Shirt?.State ?? WashState.CLEAN);
+            StateList.Add(Pants?.State ?? WashState.CLEAN);
+            StateList.Add(Socks?.State ?? WashState.CLEAN);
+            Overshirts.ForEach(OS => StateList.Add(OS.State));
+            StateList.Sort();
+            WashState MAS = StateList.Last(); //This may actually be really overcomplicated pero zoop
+            return MAS == WashState.CLEAN || MAS==WashState.SEMICLEAN ? MAS : WashState.DIRTY; 
+            //I don't want to return MAS if it's anyhting besides dirty (Like washed) because while something might be washed, others may still be dirty.
+            
+        }
 
     }
 }
