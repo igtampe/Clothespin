@@ -36,6 +36,11 @@ namespace Igtampe.Clothespin.Common.Clothes {
         /// <summary>List of accessories worn on this outfit</summary>
         public List<Accessory> Accessories { get; set; } = new();
 
+        /// <summary>Whether or not this Outfit has been deleted</summary>
+        public bool Deleted { get; set; } = false;
+
+        /// <summary>State of this Outfit</summary>
+        /// <returns>Clean or Semiclean if the most dirty item has this state. Otherwise, Dirty</returns>
         public WashState OutfitState() { 
             
             List<WashState> StateList = new();
