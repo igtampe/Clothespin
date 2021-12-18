@@ -26,6 +26,7 @@ namespace Igtampe.Clothespin.Common.Clothes {
         public string Color { get; set; } = "";
 
         /// <summary>Person this garmin belongs to</summary>
+        [JsonIgnore]
         public Person? Owner { get; set; }
 
         /// <summary>List of Outfits this Wearable is in</summary>
