@@ -4,6 +4,464 @@
         <name>API</name>
     </assembly>
     <members>
+        <member name="T:Igtampe.Clothespin.API.Controllers.ClothesController">
+            <summary>Controller that handles all operations for Clothes</summary>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.#ctor(Igtampe.Clothespin.Data.ClothespinContext)">
+            <summary>Creates a Clothes Controller</summary>
+            <param name="Context"></param>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.GetAccessory(System.Guid,System.Nullable{System.Guid})">
+            <summary>Gets a specified accessory</summary>
+            <param name="SessionID">ID of the session executing this request</param>
+            <param name="ID">ID of the item you wish to retrieve</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.GetBelt(System.Guid,System.Nullable{System.Guid})">
+            <summary>Gets a specified Belt</summary>
+            <param name="SessionID">ID of the session executing this request</param>
+            <param name="ID">ID of the item you wish to retrieve</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.GetOvershirt(System.Guid,System.Nullable{System.Guid})">
+            <summary>Gets a specified overshirt</summary>
+            <param name="SessionID">ID of the session executing this request</param>
+            <param name="ID">ID of the item you wish to retrieve</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.GetPants(System.Guid,System.Nullable{System.Guid})">
+            <summary>Gets a specified pair of pants</summary>
+            <param name="SessionID">ID of the session executing this request</param>
+            <param name="ID">ID of the item you wish to retrieve</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.GetShirt(System.Guid,System.Nullable{System.Guid})">
+            <summary>Gets a specified shirt</summary>
+            <param name="SessionID">ID of the session executing this request</param>
+            <param name="ID">ID of the item you wish to retrieve</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.GetShoes(System.Guid,System.Nullable{System.Guid})">
+            <summary>Gets a specified pair of shoes</summary>
+            <param name="SessionID">ID of the session executing this request</param>
+            <param name="ID">ID of the item you wish to retrieve</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.GetSocks(System.Guid,System.Nullable{System.Guid})">
+            <summary>Gets a specified pair of socks</summary>
+            <param name="SessionID">ID of the session executing this request</param>
+            <param name="ID">ID of the item you wish to retrieve</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.GetWearable``2(System.Linq.IQueryable{``0},System.Guid,System.Nullable{System.Guid})">
+            <summary>Helper function to get any type of wearable from the DB</summary>
+            <typeparam name="E"></typeparam>
+            <typeparam name="F"></typeparam>
+            <param name="InitialCollection"></param>
+            <param name="SessionID"></param>
+            <param name="ID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.CreateAccessory(System.Guid,System.Guid,Igtampe.Clothespin.Common.Clothes.Items.Accessory)">
+            <summary>Create an Accessory</summary>
+            <param name="SessionID">ID of the session executing this request</param>
+            <param name="PersonID">Person this new item will belong to</param>
+            <param name="Item">Item you wish to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.CreateBelt(System.Guid,System.Guid,Igtampe.Clothespin.Common.Clothes.Items.Belt)">
+            <summary>Create a Belt</summary>
+            <param name="SessionID">ID of the session executing this request</param>
+            <param name="PersonID">Person this new item will belong to</param>
+            <param name="Item">Item you wish to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.CreateOvershirt(System.Guid,System.Guid,Igtampe.Clothespin.Common.Clothes.Items.Overshirt)">
+            <summary>Create an Overshirt</summary>
+            <param name="SessionID">ID of the session executing this request</param>
+            <param name="PersonID">Person this new item will belong to</param>
+            <param name="Item">Item you wish to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.CreatePants(System.Guid,System.Guid,Igtampe.Clothespin.Common.Clothes.Items.Pants)">
+            <summary>Create a pair of pants</summary>
+            <param name="SessionID">ID of the session executing this request</param>
+            <param name="PersonID">Person this new item will belong to</param>
+            <param name="Item">Item you wish to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.CreateShirts(System.Guid,System.Guid,Igtampe.Clothespin.Common.Clothes.Items.Shirt)">
+            <summary>Create a Shirt</summary>
+            <param name="SessionID">ID of the session executing this request</param>
+            <param name="PersonID">Person this new item will belong to</param>
+            <param name="Item">Item you wish to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.CreateShoes(System.Guid,System.Guid,Igtampe.Clothespin.Common.Clothes.Items.Shoes)">
+            <summary>Create a pair of shoes</summary>
+            <param name="SessionID">ID of the session executing this request</param>
+            <param name="PersonID">Person this new item will belong to</param>
+            <param name="Item">Item you wish to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.CreateSocks(System.Guid,System.Guid,Igtampe.Clothespin.Common.Clothes.Items.Socks)">
+            <summary>Create a Sock</summary>
+            <param name="SessionID">ID of the session executing this request</param>
+            <param name="PersonID">Person this new item will belong to</param>
+            <param name="Item">Item you wish to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.CreateWearable``2(System.Guid,System.Guid,``0)">
+            <summary>Helper function to create any type of wearable</summary>
+            <typeparam name="E"></typeparam>
+            <typeparam name="F"></typeparam>
+            <param name="SessionID"></param>
+            <param name="PersonID"></param>
+            <param name="Wearable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.UpdateAccesory(System.Guid,System.Guid,Igtampe.Clothespin.Common.Clothes.Items.Accessory)">
+            <summary>Updates an Accessory</summary>
+            <param name="SessionID">ID of the session executing the request</param>
+            <param name="ID">ID of the Item you wish to update</param>
+            <param name="Item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.UpdateBelt(System.Guid,System.Guid,Igtampe.Clothespin.Common.Clothes.Items.Accessory)">
+            <summary>Updates a Belt</summary>
+            <param name="SessionID">ID of the session executing the request</param>
+            <param name="ID">ID of the Item you wish to update</param>
+            <param name="Item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.UpdateOvershirt(System.Guid,System.Guid,Igtampe.Clothespin.Common.Clothes.Items.Accessory)">
+            <summary>Updates an Overshirt</summary>
+            <param name="SessionID">ID of the session executing the request</param>
+            <param name="ID">ID of the Item you wish to update</param>
+            <param name="Item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.UpdatePants(System.Guid,System.Guid,Igtampe.Clothespin.Common.Clothes.Items.Accessory)">
+            <summary>Updates a pair of pants</summary>
+            <param name="SessionID">ID of the session executing the request</param>
+            <param name="ID">ID of the Item you wish to update</param>
+            <param name="Item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.UpdateShirt(System.Guid,System.Guid,Igtampe.Clothespin.Common.Clothes.Items.Accessory)">
+            <summary>Updates a Shirt</summary>
+            <param name="SessionID">ID of the session executing the request</param>
+            <param name="ID">ID of the Item you wish to update</param>
+            <param name="Item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.UpdateShoes(System.Guid,System.Guid,Igtampe.Clothespin.Common.Clothes.Items.Accessory)">
+            <summary>Updates a Pair of Shoes</summary>
+            <param name="SessionID">ID of the session executing the request</param>
+            <param name="ID">ID of the Item you wish to update</param>
+            <param name="Item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.UpdateSocks(System.Guid,System.Guid,Igtampe.Clothespin.Common.Clothes.Items.Accessory)">
+            <summary>Updates a pair of socks</summary>
+            <param name="SessionID">ID of the session executing the request</param>
+            <param name="ID">ID of the Item you wish to update</param>
+            <param name="Item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.UpdateWearable``2(System.Linq.IQueryable{``0},System.Guid,System.Nullable{System.Guid},``0)">
+            <summary>Helper function to update any and all properties of a wearable</summary>
+            <typeparam name="E"></typeparam>
+            <typeparam name="F"></typeparam>
+            <param name="InitialCollection"></param>
+            <param name="SessionID"></param>
+            <param name="ID"></param>
+            <param name="Wearable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.DeleteAccessory(System.Guid,System.Guid)">
+            <summary>Marks an accessory as deleted</summary>
+            <param name="SessionID">ID of the session executing this request</param>
+            <param name="ID">ID of the item to mark deleted</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.DeleteBelt(System.Guid,System.Guid)">
+            <summary>Marks a belt as deleted</summary>
+            <param name="SessionID">ID of the session executing this request</param>
+            <param name="ID">ID of the item to mark deleted</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.DeleteOvershirt(System.Guid,System.Guid)">
+            <summary>Marks an overshirt as deleted</summary>
+            <param name="SessionID">ID of the session executing this request</param>
+            <param name="ID">ID of the item to mark deleted</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.DeletePants(System.Guid,System.Guid)">
+            <summary>Marks a pair of pants as deleted</summary>
+            <param name="SessionID">ID of the session executing this request</param>
+            <param name="ID">ID of the item to mark deleted</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.DeleteShirt(System.Guid,System.Guid)">
+            <summary>Marks a shirt as deleted</summary>
+            <param name="SessionID">ID of the session executing this request</param>
+            <param name="ID">ID of the item to mark deleted</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.DeleteShoes(System.Guid,System.Guid)">
+            <summary>Marks a pair of shoes as deleted</summary>
+            <param name="SessionID">ID of the session executing this request</param>
+            <param name="ID">ID of the item to mark deleted</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.DeleteSocks(System.Guid,System.Guid)">
+            <summary>Marks a pair of socks as deleted</summary>
+            <param name="SessionID">ID of the session executing this request</param>
+            <param name="ID">ID of the item to mark deleted</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.DeleteWearable``2(System.Linq.IQueryable{``0},System.Guid,System.Nullable{System.Guid})">
+            <summary>Helper function to mark any wearable as deleted</summary>
+            <typeparam name="E"></typeparam>
+            <typeparam name="F"></typeparam>
+            <param name="InitialCollection"></param>
+            <param name="SessionID"></param>
+            <param name="ID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.GetAccessoryTypes">
+            <summary>Gets all types of accessories</summary>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.GetShoeTypes">
+            <summary>Gets all types of shoes</summary>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.GetSockTypes">
+            <summary>Get all types of socks</summary>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.GetOvershirtTypes">
+            <summary>Gets all types of overshirts</summary>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.GetShirtTypes">
+            <summary>Gets all types of shirts</summary>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.GetBeltTypes">
+            <summary>Gets all types of belts</summary>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.ClothesController.GetPantsTypes">
+            <summary>Gets all types of pants</summary>
+            <returns></returns>
+        </member>
+        <member name="T:Igtampe.Clothespin.API.Controllers.WearableSortType">
+            <summary>Sort orders for Wearables</summary>
+        </member>
+        <member name="F:Igtampe.Clothespin.API.Controllers.WearableSortType.BY_NAME">
+            <summary>Sort by Name ascending</summary>
+        </member>
+        <member name="F:Igtampe.Clothespin.API.Controllers.WearableSortType.BY_NAME_DESC">
+            <summary>Sort by name descending</summary>
+        </member>
+        <member name="F:Igtampe.Clothespin.API.Controllers.WearableSortType.BY_TYPE">
+            <summary>Sort by Type ascending</summary>
+        </member>
+        <member name="F:Igtampe.Clothespin.API.Controllers.WearableSortType.BY_TYPE_DESC">
+            <summary>Sort by type descending</summary>
+        </member>
+        <member name="T:Igtampe.Clothespin.API.Controllers.PersonController">
+            <summary>Person controller which handles creation, updating persons</summary>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.#ctor(Igtampe.Clothespin.Data.ClothespinContext)">
+            <summary>Creates a Person Controller</summary>
+            <param name="Context"></param>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.PersonIndex(System.Guid)">
+            <summary>Gets all persons under a given session</summary>
+            <param name="SessionID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.CreatePerson(System.Guid,Igtampe.Clothespin.Common.Tracking.Person)">
+            <summary>Creates a person under the given session's user</summary>
+            <param name="SessionID">ID of the session executing this request</param>
+            <param name="Person"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.UpdatePerson(System.Guid,Igtampe.Clothespin.Common.Tracking.Person)">
+             <summary>Updates a person under the given session's user</summary>
+            <param name="SessionID">ID of the session executing this request</param>
+            <param name="Item">Person with updated details</param>
+             <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.GetAccessories(System.Guid,System.Nullable{System.Guid},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Igtampe.Clothespin.API.Controllers.WearableSortType},System.String,System.Nullable{System.Int32})">
+            <summary>Gets all of this person's accessories</summary>
+            <param name="PersonID">ID of the person whose items we're looking for</param>
+            <param name="Skip">Amount of items to skip</param>
+            <param name="Take">Amount of items to take</param>
+            <param name="Sort">Sort order</param>
+            <param name="Query">Query to search for in name or in type</param>
+            <param name="Type">Type of wearable to filter by</param>
+            <param name="SessionID">ID of the session executing this request</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.GetBelts(System.Guid,System.Nullable{System.Guid},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Igtampe.Clothespin.API.Controllers.WearableSortType},System.String,System.Nullable{System.Int32})">
+            <summary>Gets all of this person's belts</summary>
+            <param name="PersonID">ID of the person whose items we're looking for</param>
+            <param name="Skip">Amount of items to skip</param>
+            <param name="Take">Amount of items to take</param>
+            <param name="Sort">Sort order</param>
+            <param name="Query">Query to search for in name or in type</param>
+            <param name="Type">Type of wearable to filter by</param>
+            <param name="SessionID">ID of the session executing this request</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.GetOvershirts(System.Guid,System.Nullable{System.Guid},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Igtampe.Clothespin.API.Controllers.WearableSortType},System.String,System.Nullable{System.Int32},System.Nullable{Igtampe.Clothespin.Common.Clothes.WashState})">
+            <summary>Gets all of this person's Overshirts</summary>
+            <param name="PersonID">ID of the person whose items we're looking for</param>
+            <param name="Skip">Amount of items to skip</param>
+            <param name="Take">Amount of items to take</param>
+            <param name="Sort">Sort order</param>
+            <param name="Query">Query to search for in name or in type</param>
+            <param name="State">WashState to filter by</param>
+            <param name="Type">Type of wearable to filter by</param>
+            <param name="SessionID">ID of the session executing this request</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.GetPants(System.Guid,System.Nullable{System.Guid},System.Int32,System.Int32,Igtampe.Clothespin.API.Controllers.WearableSortType,System.String,System.Int32,System.Nullable{Igtampe.Clothespin.Common.Clothes.WashState})">
+            <summary>Gets all of this person's Pants</summary>
+            <param name="PersonID">ID of the person whose items we're looking for</param>
+            <param name="Skip">Amount of items to skip</param>
+            <param name="Take">Amount of items to take</param>
+            <param name="Sort">Sort order</param>
+            <param name="Query">Query to search for in name or in type</param>
+            <param name="State">WashState to filter by</param>
+            <param name="Type">Type of wearable to filter by</param>
+            <param name="SessionID">ID of the session executing this request</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.GetShirts(System.Guid,System.Nullable{System.Guid},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Igtampe.Clothespin.API.Controllers.WearableSortType},System.String,System.Nullable{System.Int32},System.Nullable{Igtampe.Clothespin.Common.Clothes.WashState})">
+            <summary>Gets all of this person's Shirts</summary>
+            <param name="PersonID">ID of the person whose items we're looking for</param>
+            <param name="Skip">Amount of items to skip</param>
+            <param name="Take">Amount of items to take</param>
+            <param name="Sort">Sort order</param>
+            <param name="Query">Query to search for in name or in type</param>
+            <param name="Type">Type of wearable to filter by</param>
+            <param name="State">WashState to filter by</param>
+            <param name="SessionID">ID of the session executing this request</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.GetShoes(System.Guid,System.Nullable{System.Guid},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Igtampe.Clothespin.API.Controllers.WearableSortType},System.Nullable{System.Int32},System.String)">
+            <summary>Gets all of this person's Shoes</summary>
+            <param name="PersonID">ID of the person whose items we're looking for</param>
+            <param name="Skip">Amount of items to skip</param>
+            <param name="Take">Amount of items to take</param>
+            <param name="Sort">Sort order</param>
+            <param name="Query">Query to search for in name or in type</param>
+            <param name="Type">Type of wearable to filter by</param>
+            <param name="SessionID">ID of the session executing this request</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.GetSocks(System.Guid,System.Nullable{System.Guid},System.Int32,System.Int32,Igtampe.Clothespin.API.Controllers.WearableSortType,System.String,System.Int32,System.Nullable{Igtampe.Clothespin.Common.Clothes.WashState})">
+            <summary>Gets all of this person's Socks</summary>
+            <param name="PersonID">ID of the person whose items we're looking for</param>
+            <param name="Skip">Amount of items to skip</param>
+            <param name="Take">Amount of items to take</param>
+            <param name="Sort">Sort order</param>
+            <param name="Query">Query to search for in name or in type</param>
+            <param name="State">WashState to filter by</param>
+            <param name="Type">Type of wearable to filter by</param>
+            <param name="SessionID">ID of the session executing this request</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.GetWearables``2(System.Linq.IQueryable{``0},System.Guid,System.Nullable{System.Guid},System.Int32,System.Int32,Igtampe.Clothespin.API.Controllers.WearableSortType,System.String,System.Int32)">
+            <summary>Generic function to get a filtered list of a type of Wearable</summary>
+            <typeparam name="E">Type of Wearable you wish to retrieve</typeparam>
+            <typeparam name="F">Wearable's Type Enum</typeparam>
+            <param name="WearableDBSet">Set of the wearable you wish to filter and retrieve</param>
+            <param name="PersonID">ID of the person these wearables belong to</param>
+            <param name="Skip">Amount of wearables to skip</param>
+            <param name="Take">Amount of wearables to take</param>
+            <param name="Sort">Sort order</param>
+            <param name="Query">Query to search in the name or description</param>
+            <param name="Type">Type of the type of wearable to filter by (IE Accessory --> Watch)</param>
+            <param name="SessionID">ID of the session executing the request</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.GetWashables``2(System.Linq.IQueryable{``0},System.Guid,System.Nullable{System.Guid},System.Int32,System.Int32,Igtampe.Clothespin.API.Controllers.WearableSortType,System.String,System.Int32,System.Nullable{Igtampe.Clothespin.Common.Clothes.WashState})">
+            <summary>Generic function to get a filtered list of a type of Washable</summary>
+            <typeparam name="E">Type of Washable you wish to retrieve</typeparam>
+            <typeparam name="F">Washable's Type Enum</typeparam>
+            <param name="WashableDBSet">Set of the wearable you wish to filter and retrieve</param>
+            <param name="PersonID">ID of the person these washable belong to</param>
+            <param name="Skip">Amount of wearables to skip</param>
+            <param name="Take">Amount of wearables to take</param>
+            <param name="Sort">Sort order</param>
+            <param name="Query">Query to search in the name or description</param>
+            <param name="State">State of the washables you wish to retrieve</param>
+            <param name="Type">Type of wearable to filter by</param>
+            <param name="SessionID">ID of the session executing the request</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.GetOutfits(System.Nullable{System.Guid},System.Int32,System.Int32,Igtampe.Clothespin.API.Controllers.WearableSortType,System.String)">
+            <summary>Gets all a person's Outfits</summary>
+            <param name="PersonID">ID of the person whose outfits you wish to retrieve</param>
+            <param name="Skip">Amount of outfits to skip</param>
+            <param name="Take">Amount of outfits to take</param>
+            <param name="Sort">Sort order for outfits</param>
+            <param name="Query">Query to search in name or in description</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.OutfitWearableSearch(Igtampe.Clothespin.API.Requests.OutfitRequest,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>Search outfits by contained wearables</summary>
+            <param name="Request"></param>
+            <param name="Skip">How many outfits to skip</param>
+            <param name="Take">How many outfits to take</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.AddOutfit(System.Guid,Igtampe.Clothespin.API.Requests.OutfitCreateRequest)">
+            <summary>Add an outfit</summary>
+            <param name="Request"></param>
+            <param name="SessionID">ID of the session executing this request</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.UpdateOutfit(System.Guid,Igtampe.Clothespin.API.Requests.NameableEditableModRequest)">
+            <summary>Update an outfit</summary>
+            <param name="Request"></param>
+            <param name="SessionID">ID of the session executing this request</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.DeleteOutfit(System.Guid,System.Nullable{System.Guid})">
+             <summary>Mark an outfit as deleted</summary>
+            <param name="ID">ID of the object to delete</param>
+            <param name="SessionID">ID of the session executing this request</param>
+             <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.GetLog(System.Nullable{System.Guid},System.Int32,System.Int32,System.String)">
+            <summary>Gets a log of the specified person (Sorted in descending date order)</summary>
+            <param name="PersonID">ID of the person whose logs you wish to get</param>
+            <param name="Skip">Logs to skip</param>
+            <param name="Take">Logs to take</param>
+            <param name="Query">Search query for outfits and wearables</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.AddLog(System.Guid,Igtampe.Clothespin.API.Requests.AddLogRequest)">
+            <summary>Add a log</summary>
+            <param name="Request"></param>
+            <param name="SessionID">ID of the session executing this request</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.MostUsedOutfits(System.Nullable{System.Guid},System.Int32,System.Int32)">
+            <summary>Gets a list of most used outfits</summary>
+            <param name="PersonID">ID of the person whose most used outfits you wish to get</param>
+            <param name="Skip">Amount of outfits to skip</param>
+            <param name="Take">Amount of outfits to take</param>
+            <returns></returns>
+        </member>
         <member name="T:Igtampe.Clothespin.API.Controllers.UsersController">
             <summary>Controller that handles User operations</summary>
         </member>
@@ -36,6 +494,21 @@
             <param name="SessionID">Session that wants to log out of all tied sessions</param>
             <returns></returns>
         </member>
+        <member name="T:Igtampe.Clothespin.API.Requests.AddLogRequest">
+            <summary>Request to add a log</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.AddLogRequest.OutfitID">
+            <summary>ID of the outfit to log</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.AddLogRequest.Date">
+            <summary>Date of the log to add</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.AddLogRequest.PersonID">
+            <summary>ID of the person to log to</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.AddLogRequest.Note">
+            <summary>Note attached to the log</summary>
+        </member>
         <member name="T:Igtampe.Clothespin.API.Requests.AuthenticatedRequest">
             <summary>A request that is Authenticated</summary>
         </member>
@@ -50,6 +523,66 @@
         </member>
         <member name="P:Igtampe.Clothespin.API.Requests.ChangePasswordRequest.New">
             <summary>New Password</summary>
+        </member>
+        <member name="T:Igtampe.Clothespin.API.Requests.NameableEditableModRequest">
+            <summary>Request to modify an outfit</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.NameableEditableModRequest.ID">
+            <summary>ID of the object to update</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.NameableEditableModRequest.Name">
+            <summary>Name to update the object to</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.NameableEditableModRequest.Description">
+            <summary>Description to update the object to</summary>
+        </member>
+        <member name="T:Igtampe.Clothespin.API.Requests.OutfitCreateRequest">
+            <summary>Request to create an outfit</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.OutfitCreateRequest.Name">
+            <summary>Name of the outfit</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.OutfitCreateRequest.Description">
+            <summary>Description of the outfit</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.OutfitCreateRequest.PersonID">
+            <summary>ID of the person this Outfit will belong to</summary>
+        </member>
+        <member name="T:Igtampe.Clothespin.API.Requests.OutfitRequest">
+            <summary>Abstract Outfit Request that has all fields</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.OutfitRequest.ShirtID">
+            <summary>ID of the shrit the requested outfits must have</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.OutfitRequest.PantID">
+            <summary>ID of the pants the requested outfits must have</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.OutfitRequest.BeltID">
+            <summary>ID of the Belt the requested outfits must have</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.OutfitRequest.ShoesID">
+            <summary>ID of the shoes the requested outfits must have</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.OutfitRequest.SocksID">
+            <summary>ID of the socks the requested outfits must have</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.OutfitRequest.OvershirtIDs">
+            <summary>IDs of the overshrits the requested outfits must have</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.OutfitRequest.AccessoryIDs">
+            <summary>IDs of the accessories the requested outfits must have</summary>
+        </member>
+        <member name="T:Igtampe.Clothespin.API.Requests.PersonRequest">
+            <summary>Authenticated request with modifiable person fields (To modify or create)</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.PersonRequest.PersonID">
+            <summary>ID of the person (Default if create)</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.PersonRequest.Name">
+            <summary>Name of the Person</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.PersonRequest.ImageURL">
+            <summary>Image of the person</summary>
         </member>
         <member name="T:Igtampe.Clothespin.API.Requests.UserRequest">
             <summary>Request with a username and a password (either to check or register)</summary>

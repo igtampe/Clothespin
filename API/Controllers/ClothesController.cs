@@ -130,7 +130,7 @@ namespace Igtampe.Clothespin.API.Controllers {
             E? Item = await InitialCollection.FirstOrDefaultAsync(I => I.ID == ID && I.Owner != null && I.Owner.TiedUser != null && I.Owner.TiedUser.Username == S.UserID);
             return (Item is null ? GetResult.NOT_FOUND : GetResult.SUCCESS, 
                 Item, 
-                Item is null ? ResultDictionary[(int)GetResult.ID_MISSING] : 
+                Item is null ? ResultDictionary[(int)GetResult.NOT_FOUND] : 
             Ok(Item)); //This makes me feel like *way* more of a genius than it should lmao
         }
 
