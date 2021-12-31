@@ -1,49 +1,109 @@
-import React, { Component } from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
-import { Link } from 'react-router-dom';
-import './NavMenu.css';
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import Cookies from 'universal-cookie';
 
-export class NavMenu extends Component {
-  static displayName = NavMenu.name;
+// react.school/material-ui
 
-  constructor (props) {
-    super(props);
+const useStyles = makeStyles((theme) => ({
+  menuButton: { marginRight: theme.spacing(2) },
+  title: { flexGrow: 1 },
+  customHeight: { minHeight: 200 },
+  offset: theme.mixins.toolbar
+}));
 
-    this.toggleNavbar = this.toggleNavbar.bind(this);
-    this.state = {
-      collapsed: true
+const cookies = new Cookies();
+
+export default function ButtonAppBar() {
+  const classes = useStyles();
+
+  const [User, setUser] = useState({
+
+    name: "Nobody",
+    id: "00000",
+    notifications: [],
+    type: "No Type",
+    ready: false,
+    inprogress:false,
+    set: false
+  })
+
+  if (cookies.get('SessionID') === undefined && User.ready===false) {
+      console.log("No cookie")
+      setUser({ ...User, ready:true })
+  } else if(User.ready===false && User.inprogress===false) {
+    setUser({ ...User, inprogress:true })
+    //We have a cookie and a session. Let's get it
+
+    console.log("The cookie: " + cookies.get('SessionID'));
+
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: cookies.get('SessionID')
     };
+
+    console.log(requestOptions.body);
+
+    fetch("INFO?SessionID="+cookies.get('SessionID'), requestOptions)
+        .then(response => {
+            if(!response.ok){
+              console.log(response);
+              setUser({ ...User, ready:true })
+              cookies.remove('SessionID')
+              return undefined
+            }
+            return response.json()
+        }).then(data => {
+            console.log(data)
+            if(data===undefined){} else {
+                //We have a user!!!!!
+                console.log(data);
+                setUser({
+                  name: data.name,
+                  id: data.id,
+                  notifications: data.notifications,
+                  type: data.type.name + " account",
+                  ready: true,
+                  inprogress:false,
+                  set: true              
+                })
+            }
+        })
+
   }
 
-  toggleNavbar () {
-    this.setState({
-      collapsed: !this.state.collapsed
-    });
-  }
+  //We don't really need to check the session. Things will fail when we try to get their account summary
 
-  render () {
-    return (
-      <header>
-        <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
-          <Container>
-            <NavbarBrand tag={Link} to="/">SPA</NavbarBrand>
-            <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-            <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
-              <ul className="navbar-nav flex-grow">
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/counter">Counter</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
-                </NavItem>
-              </ul>
-            </Collapse>
-          </Container>
-        </Navbar>
-      </header>
-    );
-  }
+  return (
+    <React.Fragment>
+      <AppBar color={"primary"}>
+        <Toolbar>
+          <Typography variant="h6" className={classes.title}> Calico </Typography>
+          {
+            User.ready ? <React.Fragment>
+              {
+                User.set ?
+                  <React.Fragment>
+                    <Typography>
+                    {User.name} ({User.id}) <IconButton>{User.notifications.length}</IconButton>
+                    </Typography>
+                  </React.Fragment>
+                  : <React.Fragment>
+                    <Button color="inherit" onClick={() => console.log("login")}> Log In </Button>
+                    <Button color="inherit" onClick={() => console.log("register")}> Sign Up </Button>
+                  </React.Fragment>
+              }
+            </React.Fragment> : <CircularProgress color="secondary" />
+          }
+        </Toolbar>
+      </AppBar>
+      <Toolbar />
+    </React.Fragment>
+  );
 }
