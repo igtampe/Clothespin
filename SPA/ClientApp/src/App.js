@@ -9,6 +9,9 @@ import Cookies from 'universal-cookie';
 import { MuiThemeProvider, createTheme } from '@material-ui/core/styles';
 
 import './custom.css'
+import Logbook from './components/Logbook';
+import Statistics from './components/Statistics';
+import Closet from './components/Closet';
 
 const cookies = new Cookies();
 
@@ -30,11 +33,25 @@ export default class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
       <Layout>
-        <Route path='/'>
-          {cookies.get("SessionID")===undefined ? <Redirect to='/Login'/> : <Redirect to='/Home'/>}
-        </Route>
+        <Route exact path='/'> <Redirect to='/Home'/> </Route>
         <Route path='/Home' component={Home}/>
-        <Route path='/Login' component={Login} />
+        
+        <Route path='/Login'> 
+          {cookies.get("SessionID")===undefined ? <Login/> : <Redirect to='/Closet'/>}
+        </Route>
+        
+        <Route path='/Closet'>
+          {cookies.get("SessionID")===undefined ? <Redirect to='/Login'/> : <Closet/>}
+        </Route>
+
+        <Route path='/Logbook'>
+          {cookies.get("SessionID")===undefined ? <Redirect to='/Login'/> : <Logbook/>}
+        </Route>
+        
+        <Route path='/Statistics'>
+          {cookies.get("SessionID")===undefined ? <Redirect to='/Login'/> : <Statistics/>}
+        </Route>
+        
         <Route path='/counter' component={Counter} />
         <Route path='/fetch-data' component={FetchData} />
       </Layout>
