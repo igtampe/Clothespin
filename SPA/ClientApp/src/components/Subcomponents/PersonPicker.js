@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid"
-import LogoutButton from "./LogoutButton";
-import PasswordChangeButton from "./PasswordChangeButton";
 import { Dialog, DialogActions, DialogContent, DialogTitle } from "@material-ui/core";
 import PersonCard from "./PersonCard"
 import { CircularProgress } from "@material-ui/core";
 import Cookies from 'universal-cookie';
 import PersonCreator from "./PersonCreator";
+
+//import LogoutButton from "./LogoutButton";
+//import PasswordChangeButton from "./PasswordChangeButton";
+
+//<PasswordChangeButton/>
+//<LogoutButton />
 
 const cookies = new Cookies();
 
@@ -49,7 +53,7 @@ export default function PersonPicker(props) {
     return (
         <React.Fragment>
             <Dialog fullWidth maxWidth="sm" open={props.open} onClose={() => props.setOpen(false)}>
-                <DialogTitle>Pick a person</DialogTitle>
+                <DialogTitle style={{textAlign:"center"}}>Pick a person</DialogTitle>
                 <DialogContent>
                     {
                         Persons === undefined ? <div style={{textAlign:"center"}}><CircularProgress/></div> :
@@ -64,10 +68,7 @@ export default function PersonPicker(props) {
                             </Grid>
                     }
                 </DialogContent>
-                <DialogActions>
-                    <PasswordChangeButton/>
-                    <LogoutButton />
-                </DialogActions>
+                <DialogActions/>
             </Dialog>
             <PersonCreator open={CreatorOpen} setOpen={setCretorOpen} setPersons={setPersons}/>
 
