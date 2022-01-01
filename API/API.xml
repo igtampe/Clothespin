@@ -285,6 +285,12 @@
             <param name="SessionID"></param>
             <returns></returns>
         </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.GetPerson(System.Guid,System.Guid)">
+            <summary>Gets a specific person</summary>
+            <param name="SessionID"></param>
+            <param name="PersonID"></param>
+            <returns></returns>
+        </member>
         <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.CreatePerson(System.Guid,Igtampe.Clothespin.Common.Tracking.Person)">
             <summary>Creates a person under the given session's user</summary>
             <param name="SessionID">ID of the session executing this request</param>
@@ -477,6 +483,11 @@
         <member name="M:Igtampe.Clothespin.API.Controllers.UsersController.Register(Igtampe.Clothespin.API.Requests.UserRequest)">
             <summary>Handles user registration</summary>
             <param name="Request">User and password combination to create</param>
+            <returns></returns>
+        </member>
+        <member name="M:Igtampe.Clothespin.API.Controllers.UsersController.Check(System.Nullable{System.Guid})">
+            <summary>Gets username of the currently logged in session</summary>
+            <param name="SessionID">ID of the session</param>
             <returns></returns>
         </member>
         <member name="M:Igtampe.Clothespin.API.Controllers.UsersController.Update(Igtampe.Clothespin.API.Requests.ChangePasswordRequest)">
