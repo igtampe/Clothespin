@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid"
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import LogoutButton from "./LogoutButton";
 import PasswordChangeButton from "./PasswordChangeButton";
-import { Replay } from "@material-ui/icons";
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton } from "@material-ui/core";
+import { Dialog, DialogActions, DialogContent, DialogTitle } from "@material-ui/core";
 import PersonCard from "./PersonCard"
 import { CircularProgress } from "@material-ui/core";
 import Cookies from 'universal-cookie';

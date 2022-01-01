@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import Grid from "@material-ui/core/Grid"
-import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import LogoutButton from "./LogoutButton";
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Snackbar, TextField } from "@material-ui/core";
+import { Dialog, DialogActions, DialogContent, DialogTitle, Snackbar, TextField } from "@material-ui/core";
 import { CircularProgress } from "@material-ui/core";
 import Cookies from 'universal-cookie';
 import { Alert } from "reactstrap";
@@ -15,7 +12,7 @@ export default function PersonCreator(props) {
 
     const [name, setName] = useState("");
     const [imageURL, setImageURL] = useState("");
-    const [inProgress, setInProgress] = useState("");
+    const [InProgress, setInProgress] = useState("");
 
     const [result, setResult] = useState({
         severity: "success",
@@ -29,8 +26,8 @@ export default function PersonCreator(props) {
 
         if (name === "") {
             setResult({
-                severity:"danger",
-                text:"Name cannot be empty!"
+                severity: "danger",
+                text: "Name cannot be empty!"
             })
             setSnackOpen(true);
             return;
@@ -41,7 +38,7 @@ export default function PersonCreator(props) {
         //Grab the ID and pin and create a tiny itty bitty object
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', "sessionID": cookies.get("SessionID")},
+            headers: { 'Content-Type': 'application/json', "sessionID": cookies.get("SessionID") },
             body: JSON.stringify({
                 "name": name,
                 "imageURL": imageURL
@@ -53,21 +50,21 @@ export default function PersonCreator(props) {
         fetch("API/Persons", requestOptions)
             .then(response => {
                 setInProgress(false);
-                if(response.status!=201){ return { "error" : response.text()} }
+                if (response.status !== 201) { return { "error": response.text() } }
                 return response.json()
             }).then(data => {
                 console.log(data)
                 if (data.error !== undefined) {
                     setResult({
-                        severity:"danger",
-                        text:data.error
+                        severity: "danger",
+                        text: data.error
                     })
                     setSnackOpen(true);
                 } else {
                     //s u c c e s s
                     setResult({
-                        severity:"success",
-                        text:"Person created successfully"
+                        severity: "success",
+                        text: "Person created successfully"
                     })
                     setSnackOpen(true);
                     props.setOpen(false)
@@ -101,13 +98,14 @@ export default function PersonCreator(props) {
                     </table>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleCreatePerson} autoFocus> OK </Button>
-                    <Button onClick={() => { props.setOpen(false) }} autoFocus> Cancel </Button>
+                    {InProgress ? <CircularProgress size="20px" /> : <>
+                        <Button onClick={handleCreatePerson} autoFocus> OK </Button>
+                        <Button onClick={() => { props.setOpen(false) }} autoFocus> Cancel </Button></>}
                 </DialogActions>
             </Dialog>
 
-            <Snackbar open={SnackOpen} autoHideDuration={6000} onClose={()=>setSnackOpen(false)}>
-                <Alert onClose={()=>setSnackOpen(false)} color={result.severity} sx={{ width: '100%' }}>
+            <Snackbar open={SnackOpen} autoHideDuration={6000} onClose={() => setSnackOpen(false)}>
+                <Alert onClose={() => setSnackOpen(false)} color={result.severity} sx={{ width: '100%' }}>
                     {result.text}
                 </Alert>
             </Snackbar>
