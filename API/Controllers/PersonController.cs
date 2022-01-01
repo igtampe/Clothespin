@@ -60,11 +60,29 @@ namespace Igtampe.Clothespin.API.Controllers {
             if (S is null) { return BadRequest("Invalid session"); }
 
             //Get the User:
-            User U = await DB.User.Include(U=>U.Persons).FirstAsync(U => U.Username == S.UserID);
+            User U = await DB.User.Include(U => U.Persons).FirstAsync(U => U.Username == S.UserID);
             //We do not check for null because if there's a session there's a user
 
             //Return Persons
             return Ok(U.Persons);
+
+        }
+
+        /// <summary>Gets a specific person</summary>
+        /// <param name="SessionID"></param>
+        /// <param name="PersonID"></param>
+        /// <returns></returns>
+        [HttpGet("{PersonID}")]
+        public async Task<IActionResult> GetPerson([FromHeader] Guid SessionID, Guid PersonID) {
+            //Check the session:
+            Session? S = await Task.Run(() => SessionManager.Manager.FindSession(SessionID));
+            if (S is null) { return BadRequest("Invalid session"); }
+
+            //Get the Person:
+            Person? P = await DB.Person.Where(P => P.ID == PersonID && P.TiedUser!=null && P.TiedUser.Username == S.UserID).FirstOrDefaultAsync();  
+
+            //Return Person
+            return P is not null ? Ok(P) : NotFound("Person was not found or is not tied to session owner");
 
         }
 
