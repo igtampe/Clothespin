@@ -56,6 +56,15 @@ namespace Igtampe.Clothespin.API.Controllers {
 
         }
 
+        /// <summary>Gets username of the currently logged in session</summary>
+        /// <param name="SessionID">ID of the session</param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> Check([FromHeader] Guid? SessionID) {
+            Session? S = await Task.Run(() => SessionManager.Manager.FindSession(SessionID ?? Guid.Empty));
+            return S is not null ? Ok(S) : NotFound();
+        }
+
         /// <summary>Handles user password changes</summary>
         /// <param name="Request">Request with a logged in user's session, and their current and new passwords</param>
         /// <returns></returns>
