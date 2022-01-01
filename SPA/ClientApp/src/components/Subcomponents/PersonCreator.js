@@ -10,9 +10,9 @@ const cookies = new Cookies();
 
 export default function PersonCreator(props) {
 
-    const [name, setName] = useState("");
-    const [imageURL, setImageURL] = useState("");
-    const [InProgress, setInProgress] = useState("");
+    const [name, setName] = useState(props.name===undefined ? "" : props.name);
+    const [imageURL, setImageURL] = useState(props.imageURL===undefined ? "" : props.imageURL);
+    const [InProgress, setInProgress] = useState(false);
 
     const [result, setResult] = useState({
         severity: "success",
@@ -35,15 +35,29 @@ export default function PersonCreator(props) {
 
         setInProgress(true);
 
-        //Grab the ID and pin and create a tiny itty bitty object
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', "sessionID": cookies.get("SessionID") },
-            body: JSON.stringify({
-                "name": name,
-                "imageURL": imageURL
-            })
-        };
+        var requestOptions;
+
+        if(props.PersonID===undefined){
+            requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', "sessionID": cookies.get("SessionID") },
+                body: JSON.stringify({
+                    "name": name,
+                    "imageURL": imageURL
+                })
+            };    
+        } else {
+            requestOptions = {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json', "sessionID": cookies.get("SessionID") },
+                body: JSON.stringify({
+                    "id" : props.PersonID,
+                    "name": name,
+                    "imageURL": imageURL
+                })
+            };    
+        }
+
 
         console.log(requestOptions);
 
@@ -80,7 +94,7 @@ export default function PersonCreator(props) {
     return (
         <React.Fragment>
             <Dialog maxWidth="lg" open={props.open} onClose={() => props.setOpen(false)} scroll="paper">
-                <DialogTitle>Create a new person</DialogTitle>
+                <DialogTitle>{props.PersonID===undefined ? "Create a new person" : "Edit a Person"}</DialogTitle>
                 <DialogContent>
                     <table>
                         <tr>
