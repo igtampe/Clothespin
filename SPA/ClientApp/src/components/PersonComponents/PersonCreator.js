@@ -2,17 +2,19 @@ import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import { Dialog, DialogActions, DialogContent, DialogTitle, Snackbar, TextField } from "@material-ui/core";
 import { CircularProgress } from "@material-ui/core";
-import Cookies from 'universal-cookie';
 import { Alert } from "reactstrap";
+import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
 
 export default function PersonCreator(props) {
 
-    const [name, setName] = useState(props.name===undefined ? "" : props.name);
-    const [imageURL, setImageURL] = useState(props.imageURL===undefined ? "" : props.imageURL);
+    const [name, setName] = useState(props.person===undefined ? "" : props.person.Name);
+    const [imageURL, setImageURL] = useState(props.person===undefined ? "" : props.person.imageURL);
     const [InProgress, setInProgress] = useState(false);
+
+    const [Populated, setPopulated] = useState(false);
 
     const [result, setResult] = useState({
         severity: "success",
@@ -22,7 +24,6 @@ export default function PersonCreator(props) {
     const [SnackOpen, setSnackOpen] = useState(false);
 
     const handleCreatePerson = (event) => {
-
 
         if (name === "") {
             setResult({
@@ -37,7 +38,7 @@ export default function PersonCreator(props) {
 
         var requestOptions;
 
-        if(props.PersonID===undefined){
+        if(props.person===undefined){
             requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', "sessionID": cookies.get("SessionID") },
@@ -51,20 +52,20 @@ export default function PersonCreator(props) {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json', "sessionID": cookies.get("SessionID") },
                 body: JSON.stringify({
-                    "id" : props.PersonID,
+                    "id" : props.person.id,
                     "name": name,
                     "imageURL": imageURL
                 })
             };    
         }
 
-
         console.log(requestOptions);
 
         fetch("API/Persons", requestOptions)
             .then(response => {
                 setInProgress(false);
-                if (response.status !== 201) { return { "error": response.text() } }
+                console.log(response.status)
+                if ( !response.ok && response.status !== 201) { return { "error": response.text() } }
                 return response.json()
             }).then(data => {
                 console.log(data)
@@ -78,11 +79,12 @@ export default function PersonCreator(props) {
                     //s u c c e s s
                     setResult({
                         severity: "success",
-                        text: "Person created successfully"
+                        text: "Person " + (props.person === undefined ? "created" : "updated") + " successfully"
                     })
                     setSnackOpen(true);
                     props.setOpen(false)
-                    props.setPersons(undefined)
+                    if(props.setPersons !== undefined) {props.setPersons(undefined)}
+                    if(props.setPerson !== undefined) {props.setPerson({...props.person, Name:name, imageURL: imageURL === "" ? "/images/blankperson.png" : imageURL})}
                     setName("");
                     setImageURL("");
                 }
@@ -91,10 +93,24 @@ export default function PersonCreator(props) {
 
     }
 
+    if(props.open && !Populated){
+        
+        //Attempt to populate
+        if(props.person !== undefined){
+            setName(props.person.Name)
+            setImageURL(props.person.imageURL)
+        }
+
+        setPopulated(true)
+    }
+
+    //Reset population
+    if(!props.open && Populated) { setPopulated(false); }
+
     return (
         <React.Fragment>
             <Dialog maxWidth="lg" open={props.open} onClose={() => props.setOpen(false)} scroll="paper">
-                <DialogTitle>{props.PersonID===undefined ? "Create a new person" : "Edit a Person"}</DialogTitle>
+                <DialogTitle>{props.person===undefined ? "Create a new person" : "Edit a Person"}</DialogTitle>
                 <DialogContent>
                     <table>
                         <tr>
@@ -104,7 +120,7 @@ export default function PersonCreator(props) {
                             <td rowSpan="2"><img src={imageURL === "" ? "/images/blankperson.png" : imageURL} alt="Profile" width="100px" style={{ marginLeft: "25px", marginRight: "10px" }} /></td>
                         </tr>
                         <tr>
-                            <td>
+                            <td>    
                                 <TextField label="Image URL" value={imageURL} onChange={(event) => setImageURL(event.target.value)} fullWidth
                                     style={{ marginTop: "5px", marginBottom: "5px" }} />
                             </td>
@@ -113,8 +129,8 @@ export default function PersonCreator(props) {
                 </DialogContent>
                 <DialogActions>
                     {InProgress ? <CircularProgress size="20px" /> : <>
-                        <Button onClick={handleCreatePerson} autoFocus> OK </Button>
-                        <Button onClick={() => { props.setOpen(false) }} autoFocus> Cancel </Button></>}
+                        <Button onClick={handleCreatePerson}> OK </Button>
+                        <Button onClick={() => { props.setOpen(false) }}> Cancel </Button></>}
                 </DialogActions>
             </Dialog>
 
