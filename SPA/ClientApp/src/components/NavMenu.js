@@ -124,8 +124,6 @@ export default function ButtonAppBar() {
 
   }
 
-  //We don't really need to check the session. Things will fail when we try to get their account summary
-
   return (
     <React.Fragment>
       <AppBar color={"primary"}>
