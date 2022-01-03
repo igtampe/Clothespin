@@ -7,7 +7,7 @@ export class Layout extends Component {
 
   render () {
     return (
-      <div>
+      <div> 
         <NavMenu />
         <div style={{marginLeft:"30px", marginRight:"30px"}}>
           {this.props.children}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Tab, Tabs, Typography, Box, TextField, Divider, Grid, IconButton } from "@material-ui/core";
+import { Tab, Tabs, Typography, Box, TextField, Divider, IconButton } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search"
 import WearableDisplay from "./WearableComponents/WearableDisplay";
 import Cookies from 'universal-cookie';
@@ -39,7 +39,7 @@ function ClosetTabs(props) {
 
 export default function ClosetComponent() {
 
-    const { height, width } = useWindowDimensions();
+    const { width } = useWindowDimensions();
 
     const [value, setValue] = React.useState(0);
     const [query, setQuery] = useState("")
