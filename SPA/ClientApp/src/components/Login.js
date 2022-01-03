@@ -15,7 +15,7 @@ export default function LoginComponent() {
                     justifyContent="center"
                     style={{ minHeight: '50vh' }}
                 >
-                    <Grid item xs={10}>
+                    <Grid item xs={12}>
                         <LoginForm/>
                     </Grid>
                 </Grid>
