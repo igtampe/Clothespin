@@ -267,8 +267,8 @@ namespace Igtampe.Clothespin.API.Controllers {
         /// <param name="Item"></param>
         /// <returns></returns>
         [HttpPut("Belt")]
-        public async Task<IActionResult> UpdateBelt([FromHeader] Guid SessionID, [FromQuery] Guid ID, [FromBody] Accessory Item)
-            => await UpdateWearable<Accessory, AccessoryType>(DB.Accessory, SessionID, ID, Item);
+        public async Task<IActionResult> UpdateBelt([FromHeader] Guid SessionID, [FromQuery] Guid ID, [FromBody] Belt Item)
+            => await UpdateWearable<Belt, BeltType>(DB.Belt, SessionID, ID, Item);
 
         //Modify Overshirt
         /// <summary>Updates an Overshirt</summary>
@@ -277,8 +277,8 @@ namespace Igtampe.Clothespin.API.Controllers {
         /// <param name="Item"></param>
         /// <returns></returns>
         [HttpPut("Overshirt")]
-        public async Task<IActionResult> UpdateOvershirt([FromHeader] Guid SessionID, [FromQuery] Guid ID, [FromBody] Accessory Item)
-            => await UpdateWearable<Accessory, AccessoryType>(DB.Accessory, SessionID, ID, Item);
+        public async Task<IActionResult> UpdateOvershirt([FromHeader] Guid SessionID, [FromQuery] Guid ID, [FromBody] Overshirt Item)
+            => await UpdateWearable<Overshirt, OvershirtType>(DB.Overshirt, SessionID, ID, Item);
 
         //Modify Pants
         /// <summary>Updates a pair of pants</summary>
@@ -287,8 +287,8 @@ namespace Igtampe.Clothespin.API.Controllers {
         /// <param name="Item"></param>
         /// <returns></returns>
         [HttpPut("Pants")]
-        public async Task<IActionResult> UpdatePants([FromHeader] Guid SessionID, [FromQuery] Guid ID, [FromBody] Accessory Item)
-            => await UpdateWearable<Accessory, AccessoryType>(DB.Accessory, SessionID, ID, Item);
+        public async Task<IActionResult> UpdatePants([FromHeader] Guid SessionID, [FromQuery] Guid ID, [FromBody] Pants Item)
+            => await UpdateWearable<Pants, PantsType>(DB.Pants, SessionID, ID, Item);
 
         //Modify Shirt
         /// <summary>Updates a Shirt</summary>
@@ -297,8 +297,8 @@ namespace Igtampe.Clothespin.API.Controllers {
         /// <param name="Item"></param>
         /// <returns></returns>
         [HttpPut("Shirt")]
-        public async Task<IActionResult> UpdateShirt([FromHeader] Guid SessionID, [FromQuery] Guid ID, [FromBody] Accessory Item)
-            => await UpdateWearable<Accessory, AccessoryType>(DB.Accessory, SessionID, ID, Item);
+        public async Task<IActionResult> UpdateShirt([FromHeader] Guid SessionID, [FromQuery] Guid ID, [FromBody] Shirt Item)
+            => await UpdateWearable<Shirt, ShirtType>(DB.Shirt, SessionID, ID, Item);
 
         //Modify Shoes
         /// <summary>Updates a Pair of Shoes</summary>
@@ -307,8 +307,8 @@ namespace Igtampe.Clothespin.API.Controllers {
         /// <param name="Item"></param>
         /// <returns></returns>
         [HttpPut("Shoes")]
-        public async Task<IActionResult> UpdateShoes([FromHeader] Guid SessionID, [FromQuery] Guid ID, [FromBody] Accessory Item)
-            => await UpdateWearable<Accessory, AccessoryType>(DB.Accessory, SessionID, ID, Item);
+        public async Task<IActionResult> UpdateShoes([FromHeader] Guid SessionID, [FromQuery] Guid ID, [FromBody] Shoes Item)
+            => await UpdateWearable<Shoes, ShoeType>(DB.Shoes, SessionID, ID, Item);
 
         //Modify Socks
         /// <summary>Updates a pair of socks</summary>
@@ -317,8 +317,8 @@ namespace Igtampe.Clothespin.API.Controllers {
         /// <param name="Item"></param>
         /// <returns></returns>
         [HttpPut("Socks")]
-        public async Task<IActionResult> UpdateSocks([FromHeader] Guid SessionID, [FromQuery] Guid ID, [FromBody] Accessory Item)
-            => await UpdateWearable<Accessory, AccessoryType>(DB.Accessory, SessionID, ID, Item);
+        public async Task<IActionResult> UpdateSocks([FromHeader] Guid SessionID, [FromQuery] Guid ID, [FromBody] Socks Item)
+            => await UpdateWearable<Socks, SockType>(DB.Socks, SessionID, ID, Item);
 
         /// <summary>Helper function to update any and all properties of a wearable</summary>
         /// <typeparam name="E"></typeparam>
@@ -350,10 +350,10 @@ namespace Igtampe.Clothespin.API.Controllers {
                 }
 
                 //Get the updated value
-                string? O = (string?)Prop.GetValue(Wearable);
+                object? O = (object?)Prop.GetValue(Wearable);
 
                 //Update the value as long as its not null or whitespace
-                if (!string.IsNullOrWhiteSpace(O)) {Prop.SetValue(Get.Item2, O); }
+                if (O is not null) {Prop.SetValue(Get.Item2, O); }
 
                 //This alone should be able to handle any type of wearable, washable, and even sizeable creo.
                 //Which good god, has made this one of the most *powerful* methods I have written :flushed:
