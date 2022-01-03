@@ -22,7 +22,8 @@ const theme = createTheme({
     },
     secondary: {
       main: '#5E5B4E'
-    }
+    },
+    mode : 'dark'
   }
 });
 
@@ -34,8 +35,9 @@ export default class App extends Component {
       <MuiThemeProvider theme={theme}>
       <Layout>
         <Route exact path='/'> <Redirect to='/Home'/> </Route>
-        <Route path='/Home' component={Home}/>
-        
+        <Route path='/Home'>
+          <Home/>
+        </Route>
         <Route path='/Login'> 
           {cookies.get("SessionID")===undefined ? <Login/> : <Redirect to='/Closet'/>}
         </Route>
@@ -47,7 +49,7 @@ export default class App extends Component {
         <Route path='/Logbook'>
           {cookies.get("SessionID")===undefined ? <Redirect to='/Login'/> : <Logbook/>}
         </Route>
-        
+
         <Route path='/Statistics'>
           {cookies.get("SessionID")===undefined ? <Redirect to='/Login'/> : <Statistics/>}
         </Route>
