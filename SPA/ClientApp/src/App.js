@@ -35,9 +35,9 @@ export default class App extends Component {
       <MuiThemeProvider theme={theme}>
       <Layout>
         <Route exact path='/'> <Redirect to='/Home'/> </Route>
-        <Route path='/Home'>
-          <Home/>
-        </Route>
+        
+        <Route path='/Home'> <Home/> </Route>
+
         <Route path='/Login'> 
           {cookies.get("SessionID")===undefined ? <Login/> : <Redirect to='/Closet'/>}
         </Route>

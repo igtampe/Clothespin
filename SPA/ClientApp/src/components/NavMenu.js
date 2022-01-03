@@ -124,6 +124,11 @@ export default function ButtonAppBar() {
 
   }
 
+  const sendToLogin = (event) =>{ 
+    history.push("/Login") 
+    setMenuOpen(false);
+  }
+
   return (
     <React.Fragment>
       <AppBar color={"primary"}>
@@ -148,7 +153,7 @@ export default function ButtonAppBar() {
                     <LogoutButton />
                   </React.Fragment>
                   : <React.Fragment>
-                    <Button color="inherit" onClick={() => history.go("/Login")}> Log In </Button>
+                    <Button color="inherit" onClick={sendToLogin}> Log In </Button>
                   </React.Fragment>
               }
             </React.Fragment> : <CircularProgress color="secondary" />
@@ -183,7 +188,7 @@ export default function ButtonAppBar() {
           <Divider/>
           { User.ready && ! User.set ? 
             <List>
-              <ListItem button key="Login" onClick={()=>history.go("/Login")}>
+              <ListItem button key="Login" onClick={sendToLogin}>
                 <ListItemIcon> <img src="/images/clear/blankperson.png" alt="Manage Person" width="30px" style={{ margin: "5px", marginLeft: "10px" }} /> </ListItemIcon>
                 <ListItemText>Login</ListItemText>
               </ListItem>
