@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
+import {
+  Dialog, DialogActions, DialogContent, DialogContentText,
+  DialogTitle, IconButton, AppBar, CircularProgress, Toolbar, Typography, Button,
+  Drawer, List, Divider, ListItem, ListItemIcon, ListItemText, Box
+} from "@material-ui/core";
 import Cookies from 'universal-cookie';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import LogoutButton from "./Subcomponents/LogoutButton"
-import PersonPicker from "./Subcomponents/PersonPicker";
+import PersonPicker from "./PersonComponents/PersonPicker";
+import MenuIcon from "@material-ui/icons/Menu";
+import PasswordChangeButton from "./Subcomponents/PasswordChangeButton";
+import PersonCreator from "./PersonComponents/PersonCreator";
 
 // react.school/material-ui
 
@@ -34,6 +36,7 @@ export default function ButtonAppBar() {
   })
 
   const [Person, setPerson] = useState({
+    id:"",
     Name: "",
     imageURL: "",
     status: 0
@@ -41,6 +44,8 @@ export default function ButtonAppBar() {
 
   const [sessionExpired, setSessionExpired] = useState(false);
   const [personPicker, setPersonPicker] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [Editor, setEditor] = useState(false);
 
   if (cookies.get('SessionID') === undefined && User.ready === false) {
     console.log("No cookie")
@@ -80,7 +85,11 @@ export default function ButtonAppBar() {
             set: true
           })
 
-          if (cookies.get("PersonID") === undefined) { setPerson({ ...Person, status:1 }); return; }
+          if (cookies.get("PersonID") === undefined) { 
+            setPerson({ ...Person, status: 1 }); 
+            setPersonPicker(true)
+            return; 
+          }
 
           const PersonRequestOptions = {
             method: 'GET',
@@ -98,15 +107,18 @@ export default function ButtonAppBar() {
             }).then(data => {
               console.log(data)
               if (data === undefined) {
-                setPerson({ ...Person, status:1 });
+                setPerson({ ...Person, status: 1 });
+                setPersonPicker(true)
                 return;
               } else {
                 setPerson({
+                  id:cookies.get("PersonID"),
                   Name: data.name,
                   imageURL: data.imageURL === "" ? "/images/blankPerson.png" : data.imageURL,
                   status: 2
                 });
-              }})
+              }
+            })
         }
       })
 
@@ -118,6 +130,7 @@ export default function ButtonAppBar() {
     <React.Fragment>
       <AppBar color={"primary"}>
         <Toolbar>
+          <IconButton onClick={() => { setMenuOpen(true) }} style={{ marginRight: "15px" }}><MenuIcon /></IconButton>
           <a href="/">
             <img src="iconshaded.png" alt="Clothespin logo" width="50" height="50" /></a>
           <Typography variant="h6" className={classes.title} style={{ marginLeft: "10px", fontFamily: 'DM Serif Display' }}>Clothespin </Typography>
@@ -126,11 +139,11 @@ export default function ButtonAppBar() {
               {
                 User.set ?
                   <React.Fragment>
-                    <Button onClick={() => { setPersonPicker(true) }} style={{ textTransform:"none"}}>
+                    <Button onClick={() => { setPersonPicker(true) }} style={{ textTransform: "none" }}>
                       {Person.status === 0 ? <CircularProgress size="20px" color="secondary" style={{ marginRight: "20px" }} /> : <>{
                         Person.status === 1 ? "No person selected (" + User.Username + ")"
                           : <>
-                            <img src={Person.imageURL} alt="Selected Person" width="30px" style={{ margin: "5px", marginLeft:"10px"}} /> {Person.Name + " "}
+                            <img src={Person.imageURL} alt="Selected Person" width="30px" style={{ margin: "5px", marginLeft: "10px" }} /> {Person.Name + " "}
                           </>
                       }</>}
                     </Button>
@@ -144,9 +157,9 @@ export default function ButtonAppBar() {
           }
         </Toolbar>
       </AppBar>
-      <Toolbar />
+      <Toolbar style={{ marginBottom: "20px" }} />
 
-      <PersonPicker open={personPicker} setOpen={setPersonPicker} Username = {User.Username}/>
+      <PersonPicker open={personPicker} setOpen={setPersonPicker} Username={User.Username} />
 
       <Dialog open={sessionExpired} >
         <DialogTitle> Session Expired </DialogTitle>
@@ -158,6 +171,81 @@ export default function ButtonAppBar() {
         </DialogActions>
       </Dialog>
 
+      <Drawer open={menuOpen} onClose={() => setMenuOpen(false)}>
+        <Box
+          sx={{ width: 250 }}
+          role="presentation"
+        >
+          <List>
+            <ListItem key="Logo">
+              <img src="iconshaded.png" alt="Clothespin logo" width="50" height="50" />
+              <Typography variant="h6" className={classes.title} style={{ marginLeft: "10px", fontFamily: 'DM Serif Display' }}>Clothespin </Typography>
+            </ListItem>
+          </List>
+          <Divider/>
+          { User.ready && ! User.set ? 
+            <List>
+              <ListItem button key="Login" onClick={()=>history.go("/Login")}>
+                <ListItemIcon> <img src="/images/clear/blankperson.png" alt="Manage Person" width="30px" style={{ margin: "5px", marginLeft: "10px" }} /> </ListItemIcon>
+                <ListItemText>Login</ListItemText>
+              </ListItem>
+            </List>
+          : <>
+          <List>
+            <ListItem button key="Person" onClick={() => setPersonPicker(true)}>
+              {Person.status === 0 ? <CircularProgress size="20px" color="secondary" style={{ marginRight: "20px" }} /> : <>{
+                Person.status === 1 ?
+                  <><ListItemIcon> <img src={"/images/clear/blankperson.png"} alt="Selected Person" width="30px" style={{ margin: "5px", marginLeft: "10px" }} /> </ListItemIcon>
+                    <ListItemText> Pick a person </ListItemText></>
+                  : <><ListItemIcon><img src={Person.imageURL} alt="Selected Person" width="30px" style={{ margin: "5px", marginLeft: "10px" }} /></ListItemIcon>
+                    <ListItemText>{Person.Name}</ListItemText></>
+              }</>}
+            </ListItem>
+            {Person.status === 2 ?
+              <ListItem button key="ManagePerson" onClick={() => setEditor(true)}>
+                <ListItemIcon><img src="/images/clear/blankpersonmanage.png" alt="Manage Person" width="30px" style={{ margin: "5px", marginLeft: "10px" }} /></ListItemIcon>
+                <ListItemText>Edit {Person.Name}</ListItemText>
+              </ListItem>
+              : ""}
+              </List>
+              <Divider />
+              <List>
+            <ListItem button key="Closet" onClick={() => {history.push("/Closet"); setMenuOpen(false)}}>
+              <ListItemIcon><img src="/images/clear/Shirt.png" alt="Manage Person" width="30px" style={{ margin: "5px", marginLeft: "10px" }} /></ListItemIcon>
+              <ListItemText>Closet</ListItemText>
+            </ListItem>
+            <ListItem button key="Logbook" onClick={() => {history.push("/Logbook"); setMenuOpen(false)}}>
+              <ListItemIcon><img src="/images/clear/Logbook.png" alt="Logbook" width="30px" style={{ margin: "5px", marginLeft: "10px" }} /></ListItemIcon>
+              <ListItemText>Logbook</ListItemText>
+            </ListItem>
+            <ListItem button key="Statistics" onClick={() => {history.push("/Statistics"); setMenuOpen(false)}}>
+              <ListItemIcon><img src="/images/clear/Statistics.png" alt="Insights" width="30px" style={{ margin: "5px", marginLeft: "10px" }} /></ListItemIcon>
+              <ListItemText>Insights</ListItemText>
+            </ListItem>
+            </List>
+            <Divider />
+            <List>
+            <ListItem key="AccountManagement">
+              <PasswordChangeButton />
+              <LogoutButton />
+            </ListItem>
+          </List></>}
+          
+          {!process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? 
+            <>
+              <Divider/>
+              <List><a href="/Swagger">
+                <ListItem>
+                  <ListItemText style={{textAlign:"center"}}>Swagger</ListItemText>
+                </ListItem></a>
+              </List>
+            </>
+          : ""}    
+
+        </Box>
+      </Drawer>
+
+      <PersonCreator open={Editor} setOpen={setEditor} person={Person} setPerson={setPerson} />
 
     </React.Fragment>
   );
