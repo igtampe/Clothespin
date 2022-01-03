@@ -124,6 +124,9 @@
         /// <summary>Vests (Vests that can go under a suit)</summary>
         Vest = 5,
 
+        /// <summary>Blazers (More casual suits)</summary>
+        Blazer = 6,
+
     }
 
     /// <summary>Type of a Shirt</summary>
