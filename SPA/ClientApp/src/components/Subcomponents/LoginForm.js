@@ -3,14 +3,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from '@material-ui/core/TextField';
 import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography";
-import { CircularProgress, Container } from "@material-ui/core";
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import { CircularProgress, Container, Snackbar } from "@material-ui/core";
 import Cookies from 'universal-cookie';
 import { useHistory } from "react-router-dom";
+import { Alert } from "reactstrap";
 
 // react.school/material-ui
 
@@ -39,7 +35,8 @@ export default function LoginForm() {
     const [ResultOpen, setResultOpen] = useState(false);
     const [Result, setResult] = useState({
         Action: "do something",
-        Text: "Desconozco"
+        Text: "Desconozco",
+        Severity : "danger"        
     });
 
     const handleIDChange = (event) => { SetID(event.target.value); };
@@ -120,6 +117,9 @@ export default function LoginForm() {
                 console.log(data)
                 if (data === undefined) {
                 } else if (data === "") {
+
+                    setResult({ Action: "Register", Text: "Registered successfully!", Severity:"success"});
+                    setResultOpen(true);
                     //We have successfully registered. Now try to login
                     OnLoginButtonClick();
                     return;
@@ -142,29 +142,22 @@ export default function LoginForm() {
                         style={{ marginTop: "5px", marginBottom: "5px" }} /><br />
 
                     <br />
-
-                    <div style={{ textAlign: 'center' }}>
-                        <Button variant='contained' color='primary' disabled={LoginInProgress} onClick={OnLoginButtonClick}
-                            style={{ margin: "10px" }}>
-                            {LoginInProgress ? <CircularProgress size={20} /> : "Log In"}
-                        </Button> or
-                        <Button variant='contained' color='secondary' disabled={LoginInProgress} onClick={OnRegisterButtonClick}
-                            style={{ margin: "10px" }}>
-                            {LoginInProgress ? <CircularProgress size={20} /> : "Register"}
-                        </Button>
-                    </div>
                 </Typography>
+                <div style={{ textAlign: 'center' }}>
+                    {LoginInProgress?  <CircularProgress/> : <>
+                        <Button variant='contained' color='primary' disabled={LoginInProgress} onClick={OnLoginButtonClick}
+                            style={{ margin: "10px" }}> Log In </Button> or
+                        <Button variant='contained' color='secondary' disabled={LoginInProgress} onClick={OnRegisterButtonClick}
+                            style={{ margin: "10px" }}>Register</Button></> }
+                    </div>
             </Container>
+            
+            <Snackbar open={ResultOpen} autoHideDuration={6000} onClose={handleCloseResultDialog}>
+                <Alert onClose={handleCloseResultDialog} color={Result.Severity ? Result.Severity : "danger"} sx={{ width: '100%' }}>
+                    Could not {Result.Action}: {Result.Text}
+                </Alert>
+            </Snackbar>
 
-            <Dialog open={ResultOpen} onClose={handleCloseResultDialog} >
-                <DialogTitle> Could not {Result.Action} </DialogTitle>
-                <DialogContent>
-                    <DialogContentText>{Result.Text}</DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleCloseResultDialog} autoFocus> OK </Button>
-                </DialogActions>
-            </Dialog>
         </React.Fragment>
     );
 
