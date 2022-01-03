@@ -164,8 +164,8 @@ namespace Igtampe.Clothespin.API.Controllers {
         /// <returns></returns>
         [HttpGet("Clothes/Accessories")]
         public async Task<IActionResult> GetAccessories([FromHeader] Guid SessionID, [FromQuery] Guid? PersonID, [FromQuery] int? Skip, [FromQuery] int? Take,
-            [FromQuery] WearableSortType? Sort, [FromQuery] string? Query, [FromQuery] int? Type) 
-            => await GetWearables<Accessory, AccessoryType>(DB.Accessory, SessionID, PersonID, Skip ?? 0, Take ?? 20, Sort ?? WearableSortType.BY_NAME, Query ?? "", Type ?? -1);
+            [FromQuery] WearableSortType? Sort, [FromQuery] string? Query, [FromQuery] AccessoryType? Type) 
+            => await GetWearables<Accessory, AccessoryType>(DB.Accessory, SessionID, PersonID, Skip ?? 0, Take ?? 20, Sort ?? WearableSortType.BY_NAME, Query ?? "", Type ?? AccessoryType.Other, Type is null);
 
         /// <summary>Gets all of this person's belts</summary>
         /// <param name="PersonID">ID of the person whose items we're looking for</param>
@@ -178,8 +178,8 @@ namespace Igtampe.Clothespin.API.Controllers {
         /// <returns></returns>
         [HttpGet("Clothes/Belts")]
         public async Task<IActionResult> GetBelts([FromHeader] Guid SessionID, [FromQuery] Guid? PersonID, [FromQuery] int? Skip, [FromQuery] int? Take,
-            [FromQuery] WearableSortType? Sort, [FromQuery] string? Query, [FromQuery] int? Type)
-            => await GetWearables<Belt, BeltType>(DB.Belt, SessionID, PersonID, Skip ?? 0, Take ?? 20, Sort ?? WearableSortType.BY_NAME, Query ?? "", Type ?? -1);
+            [FromQuery] WearableSortType? Sort, [FromQuery] string? Query, [FromQuery] BeltType? Type)
+            => await GetWearables<Belt, BeltType>(DB.Belt, SessionID, PersonID, Skip ?? 0, Take ?? 20, Sort ?? WearableSortType.BY_NAME, Query ?? "", Type ?? BeltType.Other, Type is null);
 
         /// <summary>Gets all of this person's Overshirts</summary>
         /// <param name="PersonID">ID of the person whose items we're looking for</param>
@@ -193,8 +193,8 @@ namespace Igtampe.Clothespin.API.Controllers {
         /// <returns></returns>
         [HttpGet("Clothes/Overshirts")]
         public async Task<IActionResult> GetOvershirts([FromHeader] Guid SessionID, [FromQuery] Guid? PersonID, [FromQuery] int? Skip, [FromQuery] int? Take,
-            [FromQuery] WearableSortType? Sort, [FromQuery] string? Query, [FromQuery] int? Type, [FromQuery] WashState? State)
-            => await GetWashables<Overshirt, OvershirtType>(DB.Overshirt, SessionID, PersonID, Skip ?? 0, Take ?? 20, Sort ?? WearableSortType.BY_NAME, Query ?? "", Type ?? -1, State);
+            [FromQuery] WearableSortType? Sort, [FromQuery] string? Query, [FromQuery] OvershirtType? Type, [FromQuery] WashState? State)
+            => await GetWashables<Overshirt, OvershirtType>(DB.Overshirt, SessionID, PersonID, Skip ?? 0, Take ?? 20, Sort ?? WearableSortType.BY_NAME, Query ?? "", Type ?? OvershirtType.Other, Type is null, State);
 
         /// <summary>Gets all of this person's Pants</summary>
         /// <param name="PersonID">ID of the person whose items we're looking for</param>
@@ -207,9 +207,9 @@ namespace Igtampe.Clothespin.API.Controllers {
         /// <param name="SessionID">ID of the session executing this request</param>
         /// <returns></returns>
         [HttpGet("Clothes/Pants")]
-        public async Task<IActionResult> GetPants([FromHeader] Guid SessionID, [FromQuery] Guid? PersonID, [FromQuery] int Skip = 0, [FromQuery] int Take = 20,
-            [FromQuery] WearableSortType Sort = WearableSortType.BY_NAME, [FromQuery] string Query = "", [FromQuery] int Type = -1, [FromQuery] WashState? State = null)
-            => await GetWashables<Pants, PantsType>(DB.Pants, SessionID, PersonID, Skip, Take, Sort, Query, Type, State);
+        public async Task<IActionResult> GetPants([FromHeader] Guid SessionID, [FromQuery] Guid? PersonID, [FromQuery] int? Skip, [FromQuery] int? Take,
+            [FromQuery] WearableSortType? Sort, [FromQuery] string? Query, [FromQuery] PantsType? Type, [FromQuery] WashState? State = null)
+            => await GetWashables<Pants, PantsType>(DB.Pants, SessionID, PersonID, Skip ?? 0, Take ?? 20, Sort ?? WearableSortType.BY_NAME, Query ?? "", Type ?? PantsType.Other, Type is null, State);
 
         /// <summary>Gets all of this person's Shirts</summary>
         /// <param name="PersonID">ID of the person whose items we're looking for</param>
@@ -223,8 +223,8 @@ namespace Igtampe.Clothespin.API.Controllers {
         /// <returns></returns>
         [HttpGet("Clothes/Shirts")]
         public async Task<IActionResult> GetShirts([FromHeader] Guid SessionID, [FromQuery] Guid? PersonID, [FromQuery] int? Skip, [FromQuery] int? Take,
-            [FromQuery] WearableSortType? Sort, [FromQuery] string? Query, [FromQuery] int? Type, [FromQuery] WashState? State)
-            => await GetWashables<Shirt, ShirtType>(DB.Shirt, SessionID, PersonID, Skip ?? 0, Take ?? 20, Sort ?? WearableSortType.BY_NAME, Query ?? "", Type ?? -1, State);
+            [FromQuery] WearableSortType? Sort, [FromQuery] string? Query, [FromQuery] ShirtType? Type, [FromQuery] WashState? State)
+            => await GetWashables<Shirt, ShirtType>(DB.Shirt, SessionID, PersonID, Skip ?? 0, Take ?? 20, Sort ?? WearableSortType.BY_NAME, Query ?? "", Type ?? ShirtType.Other, Type is null, State);
 
         /// <summary>Gets all of this person's Shoes</summary>
         /// <param name="PersonID">ID of the person whose items we're looking for</param>
@@ -237,8 +237,8 @@ namespace Igtampe.Clothespin.API.Controllers {
         /// <returns></returns>
         [HttpGet("Clothes/Shoes")]
         public async Task<IActionResult> GetShoes([FromHeader] Guid SessionID, [FromQuery] Guid? PersonID, [FromQuery] int? Skip, [FromQuery] int? Take,
-            [FromQuery] WearableSortType? Sort, [FromQuery] int? Type, [FromQuery] string? Query)
-            => await GetWearables<Shoes, ShoeType>(DB.Shoes, SessionID, PersonID, Skip ?? 0, Take ?? 20, Sort ?? WearableSortType.BY_NAME, Query ?? "", Type ?? -1);
+            [FromQuery] WearableSortType? Sort, [FromQuery] ShoeType? Type, [FromQuery] string? Query)
+            => await GetWearables<Shoes, ShoeType>(DB.Shoes, SessionID, PersonID, Skip ?? 0, Take ?? 20, Sort ?? WearableSortType.BY_NAME, Query ?? "", Type ?? ShoeType.Other, Type is null);
 
         /// <summary>Gets all of this person's Socks</summary>
         /// <param name="PersonID">ID of the person whose items we're looking for</param>
@@ -251,9 +251,9 @@ namespace Igtampe.Clothespin.API.Controllers {
         /// <param name="SessionID">ID of the session executing this request</param>
         /// <returns></returns>
         [HttpGet("Clothes/Socks")]
-        public async Task<IActionResult> GetSocks([FromHeader] Guid SessionID, [FromQuery] Guid? PersonID, [FromQuery] int Skip = 0, [FromQuery] int Take = 20,
-            [FromQuery] WearableSortType Sort = WearableSortType.BY_NAME, [FromQuery] string Query = "", [FromQuery] int Type = -1,[FromQuery] WashState? State = null)
-            => await GetWashables<Socks, SockType>(DB.Socks, SessionID, PersonID, Skip, Take, Sort, Query, Type, State);
+        public async Task<IActionResult> GetSocks([FromHeader] Guid SessionID, [FromQuery] Guid? PersonID, [FromQuery] int? Skip, [FromQuery] int? Take,
+            [FromQuery] WearableSortType? Sort, [FromQuery] string? Query, [FromQuery] SockType? Type,[FromQuery] WashState? State = null)
+            => await GetWashables<Socks, SockType>(DB.Socks, SessionID, PersonID, Skip ?? 0, Take ?? 20, Sort ?? WearableSortType.BY_NAME, Query ?? "", Type ?? SockType.Other, Type is null, State);
 
         /// <summary>Generic function to get a filtered list of a type of Wearable</summary>
         /// <typeparam name="E">Type of Wearable you wish to retrieve</typeparam>
@@ -266,10 +266,11 @@ namespace Igtampe.Clothespin.API.Controllers {
         /// <param name="Query">Query to search in the name or description</param>
         /// <param name="Type">Type of the type of wearable to filter by (IE Accessory --> Watch)</param>
         /// <param name="SessionID">ID of the session executing the request</param>
+        /// <param name="IgnoreType"> Specifies whether or not to ignore the type parameter. This is a workaround, because I cannot do nullable enums over generic functions.</param>
         /// <returns></returns>
         [NonAction]
         private async Task<IActionResult> GetWearables<E, F>(IQueryable<E> WearableDBSet, Guid SessionID, Guid? PersonID, int Skip, int Take,
-            WearableSortType Sort, string Query, int Type) where F : Enum where E : Wearable<F> {
+            WearableSortType Sort, string Query, F Type, bool IgnoreType = false) where F : Enum where E : Wearable<F> {
 
             if (PersonID is null) { return BadRequest("Person ID not specified"); }
             Query = Query.ToLower(); // For case insensitivity
@@ -283,7 +284,7 @@ namespace Igtampe.Clothespin.API.Controllers {
                 A => A.Owner != null && A.Owner.ID == PersonID && A.Owner.TiedUser != null && A.Owner.TiedUser.Username==S.UserID &&
                 !A.Deleted && (A.Name.ToLower().Contains(Query) || A.Description.ToLower().Contains(Query)));
 
-            if (Type != -1 && Enum.IsDefined(typeof(F), Type)) {  BaseSet = BaseSet.Where(A=>A.Type.Equals(Type)); }
+            if (!IgnoreType) {  BaseSet = BaseSet.Where(A=>A.Type.Equals(Type)); }
 
             //Order by
             switch (Sort) {
@@ -323,14 +324,15 @@ namespace Igtampe.Clothespin.API.Controllers {
         /// <param name="State">State of the washables you wish to retrieve</param>
         /// <param name="Type">Type of wearable to filter by</param>
         /// <param name="SessionID">ID of the session executing the request</param>
+        /// /// <param name="IgnoreType"> Specifies whether or not to ignore the type parameter. This is a workaround, because I cannot do nullable enums over generic functions.</param>
         /// <returns></returns>
         [NonAction]
         private async Task<IActionResult> GetWashables<E, F>(IQueryable<E> WashableDBSet, Guid SessionID, Guid? PersonID, int Skip, int Take,
-            WearableSortType Sort, string Query, int Type, WashState? State = null) where F : Enum where E : Washable<F> {
+            WearableSortType Sort, string Query, F Type, bool IgnoreType = false, WashState? State = null) where F : Enum where E : Washable<F> {
 
             //Let's hope this works
-            return State is null ? await GetWearables<E, F>(WashableDBSet, SessionID, PersonID, Skip, Take, Sort, Query, Type) 
-                : await GetWearables<E, F>(WashableDBSet.Where(W => W.State == State), SessionID, PersonID, Skip, Take, Sort, Query, Type); 
+            return State is null ? await GetWearables<E, F>(WashableDBSet, SessionID, PersonID, Skip, Take, Sort, Query, Type, IgnoreType) 
+                : await GetWearables<E, F>(WashableDBSet.Where(W => W.State == State), SessionID, PersonID, Skip, Take, Sort, Query, Type, IgnoreType); 
         }
 
         #endregion
