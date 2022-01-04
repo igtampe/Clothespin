@@ -4,7 +4,7 @@ using Igtampe.Clothespin.Common.Tracking;
 namespace Igtampe.Clothespin.Common.Clothes {
 
     /// <summary>Holds an outfit (either a predetermined saved one, or a single use one)</summary>
-    public class Outfit : Identifiable, Nameable, Describable {
+    public class Outfit : Identifiable, Nameable, Describable, Depictable {
 
         /// <summary>Name of this outfit</summary>
         public string Name { get; set; } = "";
@@ -38,6 +38,9 @@ namespace Igtampe.Clothespin.Common.Clothes {
 
         /// <summary>Whether or not this Outfit has been deleted</summary>
         public bool Deleted { get; set; } = false;
+
+        /// <summary>Image URL for this Outfit</summary>
+        public string ImageURL { get; set; } = "";
 
         /// <summary>State of this Outfit</summary>
         /// <returns>Clean or Semiclean if the most dirty item has this state. Otherwise, Dirty</returns>
