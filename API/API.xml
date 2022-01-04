@@ -415,20 +415,22 @@
             /// <param name="IgnoreType"> Specifies whether or not to ignore the type parameter. This is a workaround, because I cannot do nullable enums over generic functions.</param>
             <returns></returns>
         </member>
-        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.GetOutfits(System.Nullable{System.Guid},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Igtampe.Clothespin.API.Controllers.WearableSortType},System.String)">
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.GetOutfits(System.Guid,System.Nullable{System.Guid},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{Igtampe.Clothespin.API.Controllers.WearableSortType},System.String)">
             <summary>Gets all a person's Outfits</summary>
             <param name="PersonID">ID of the person whose outfits you wish to retrieve</param>
             <param name="Skip">Amount of outfits to skip</param>
             <param name="Take">Amount of outfits to take</param>
             <param name="Sort">Sort order for outfits</param>
             <param name="Query">Query to search in name or in description</param>
+            <param name="SessionID">ID of the session executing this request</param>
             <returns></returns>
         </member>
-        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.OutfitWearableSearch(Igtampe.Clothespin.API.Requests.OutfitRequest,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.OutfitWearableSearch(System.Guid,Igtampe.Clothespin.API.Requests.OutfitRequest,System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>Search outfits by contained wearables</summary>
             <param name="Request"></param>
             <param name="Skip">How many outfits to skip</param>
             <param name="Take">How many outfits to take</param>
+            <param name="SessionID">ID of the session executing this request</param>
             <returns></returns>
         </member>
         <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.AddOutfit(System.Guid,Igtampe.Clothespin.API.Requests.OutfitCreateRequest)">
@@ -449,12 +451,13 @@
             <param name="SessionID">ID of the session executing this request</param>
              <returns></returns>
         </member>
-        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.GetLog(System.Nullable{System.Guid},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String)">
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.GetLog(System.Guid,System.Nullable{System.Guid},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String)">
             <summary>Gets a log of the specified person (Sorted in descending date order)</summary>
             <param name="PersonID">ID of the person whose logs you wish to get</param>
             <param name="Skip">Logs to skip</param>
             <param name="Take">Logs to take</param>
             <param name="Query">Search query for outfits and wearables</param>
+            <param name="SessionID">ID of the session executing this request</param>
             <returns></returns>
         </member>
         <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.AddLog(System.Guid,Igtampe.Clothespin.API.Requests.AddLogRequest)">
@@ -463,11 +466,12 @@
             <param name="SessionID">ID of the session executing this request</param>
             <returns></returns>
         </member>
-        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.MostUsedOutfits(System.Nullable{System.Guid},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.MostUsedOutfits(System.Guid,System.Nullable{System.Guid},System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>Gets a list of most used outfits</summary>
             <param name="PersonID">ID of the person whose most used outfits you wish to get</param>
             <param name="Skip">Amount of outfits to skip</param>
             <param name="Take">Amount of outfits to take</param>
+            <param name="SessionID">ID of the session executing this request</param>
             <returns></returns>
         </member>
         <member name="T:Igtampe.Clothespin.API.Controllers.UsersController">

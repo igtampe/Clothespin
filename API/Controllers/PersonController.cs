@@ -347,12 +347,18 @@ namespace Igtampe.Clothespin.API.Controllers {
         /// <param name="Take">Amount of outfits to take</param>
         /// <param name="Sort">Sort order for outfits</param>
         /// <param name="Query">Query to search in name or in description</param>
+        /// <param name="SessionID">ID of the session executing this request</param>
         /// <returns></returns>
         [HttpGet("Outfits")]
-        public async Task<IActionResult> GetOutfits(Guid? PersonID, int? Skip, int? Take, WearableSortType? Sort, string? Query) {
+        public async Task<IActionResult> GetOutfits([FromHeader] Guid SessionID, [FromQuery] Guid? PersonID, [FromQuery] int? Skip, 
+            [FromQuery] int? Take, [FromQuery] WearableSortType? Sort, [FromQuery] string? Query) {
 
             if (PersonID is null) { return BadRequest("Person ID not specified"); }
             Query = (Query ?? "").ToLower();
+
+            //Get the session
+            Session? S = SessionManager.Manager.FindSession(SessionID);
+            if (S is null) { return Unauthorized("Invalid session"); }
 
             IQueryable<Outfit> BaseSet = DB.Outfit
                 .Include(O => O.Shirt)
@@ -362,7 +368,7 @@ namespace Igtampe.Clothespin.API.Controllers {
                 .Include(O => O.Socks)
                 .Include(O => O.Belt)
                 .Include(O => O.Accessories)
-                .Where(O => O.Owner != null && O.Owner.ID == PersonID && !O.Deleted &&
+                .Where(O => O.Owner != null && O.Owner.ID == PersonID && O.Owner.TiedUser != null && O.Owner.TiedUser.Username == S.UserID && !O.Deleted &&
                 ( O.Name.ToLower().Contains(Query) || O.Description.ToLower().Contains(Query)));
 
             //Order by
@@ -390,9 +396,14 @@ namespace Igtampe.Clothespin.API.Controllers {
         /// <param name="Request"></param>
         /// <param name="Skip">How many outfits to skip</param>
         /// <param name="Take">How many outfits to take</param>
+        /// <param name="SessionID">ID of the session executing this request</param>
         /// <returns></returns>
         [HttpPost("Outfits")]
-        public async Task<IActionResult> OutfitWearableSearch([FromBody]OutfitRequest Request, [FromQuery] int? Skip, [FromQuery] int? Take) {
+        public async Task<IActionResult> OutfitWearableSearch([FromHeader] Guid SessionID, [FromBody]OutfitRequest Request, [FromQuery] int? Skip, [FromQuery] int? Take) {
+
+            //Get the session
+            Session? S = SessionManager.Manager.FindSession(SessionID);
+            if (S is null) { return Unauthorized("Invalid session"); }
 
             IQueryable<Outfit> BaseSet = DB.Outfit.Include(O => O.Shirt)
                 .Include(O => O.Overshirts)
@@ -400,7 +411,8 @@ namespace Igtampe.Clothespin.API.Controllers {
                 .Include(O => O.Shoes)
                 .Include(O => O.Socks)
                 .Include(O => O.Belt)
-                .Include(O => O.Accessories);
+                .Include(O => O.Accessories)
+                .Where(O=>O.Owner!= null && O.Owner.TiedUser!= null && O.Owner.TiedUser.Username==S.UserID);
                 
             if (Request.ShirtID is not null) { BaseSet = BaseSet.Where(O => O.Shirt != null && O.Shirt.ID == Request.ShirtID); }
             if (Request.PantID is not null) { BaseSet = BaseSet.Where(O => O.Pants != null && O.Pants.ID == Request.PantID); }
@@ -439,7 +451,7 @@ namespace Igtampe.Clothespin.API.Controllers {
 
             //Check the session:
             Session? S = await Task.Run(() => SessionManager.Manager.FindSession(SessionID));
-            if (S is null) { return BadRequest("Invalid session"); }
+            if (S is null) { return Unauthorized("Invalid session"); }
 
             //Get the person
             Person? P = await DB.Person.FirstOrDefaultAsync(P=>P.ID==Request.PersonID && P.TiedUser != null && P.TiedUser.Username==S.UserID);
@@ -527,7 +539,7 @@ namespace Igtampe.Clothespin.API.Controllers {
 
             //Check the session:
             Session? S = await Task.Run(() => SessionManager.Manager.FindSession(SessionID));
-            if (S is null) { return BadRequest("Invalid session"); }
+            if (S is null) { return Unauthorized("Invalid session"); }
 
             //Get the outfit:
             Outfit? O = await DB.Outfit.FirstOrDefaultAsync(O => O.ID==Request.ID && 
@@ -559,7 +571,7 @@ namespace Igtampe.Clothespin.API.Controllers {
 
             //Check the session:
             Session? S = await Task.Run(() => SessionManager.Manager.FindSession(SessionID));
-            if (S is null) { return BadRequest("Invalid session"); }
+            if (S is null) { return Unauthorized("Invalid session"); }
 
             //Get the outfit:
             Outfit? O = await DB.Outfit.FirstOrDefaultAsync(O => O.ID == ID &&
@@ -585,9 +597,15 @@ namespace Igtampe.Clothespin.API.Controllers {
         /// <param name="Skip">Logs to skip</param>
         /// <param name="Take">Logs to take</param>
         /// <param name="Query">Search query for outfits and wearables</param>
+        /// <param name="SessionID">ID of the session executing this request</param>
         /// <returns></returns>
         [HttpGet("Log")]
-        public async Task<IActionResult> GetLog(Guid? PersonID, int? Skip, int? Take, string? Query) {
+        public async Task<IActionResult> GetLog([FromHeader] Guid SessionID, [FromQuery] Guid? PersonID, [FromQuery] int? Skip, [FromQuery] int? Take, [FromQuery] string? Query) {
+
+            //Check the session:
+            Session? S = await Task.Run(() => SessionManager.Manager.FindSession(SessionID));
+            if (S is null) { return Unauthorized("Invalid session"); }
+
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
             IQueryable<LogItem> MostRecentBaseSet = DB.LogItem.Where(L => L.Outfit != null) //This where covers the dereference but VS doesn't recognize it
                 .Include(L => L.Outfit).ThenInclude(O => O.Shirt)
@@ -597,7 +615,7 @@ namespace Igtampe.Clothespin.API.Controllers {
                 .Include(L => L.Outfit).ThenInclude(O => O.Socks)
                 .Include(L => L.Outfit).ThenInclude(O => O.Belt)
                 .Include(L => L.Outfit).ThenInclude(O => O.Accessories)
-                .Where(O => O.Owner != null && O.Owner.ID == PersonID &&
+                .Where(O => O.Owner != null && O.Owner.ID == PersonID && O.Owner.TiedUser != null && O.Owner.TiedUser.Username==S.UserID &&
                     ((O.Outfit != null && (O.Outfit.Name.ToLower().Contains(Query ?? "") || O.Outfit.Description.ToLower().Contains(Query ?? ""))) ||
                     (O.Outfit.Shirt != null && (O.Outfit.Shirt.Name.ToLower().Contains(Query ?? "") || O.Outfit.Shirt.Description.ToLower().Contains(Query ?? "")))||
                     (O.Outfit.Overshirts != null && (O.Outfit.Overshirts.Any(O=>O.Name.ToLower().Contains(Query ?? "") || O.Description.ToLower().Contains(Query ?? "")))) ||
@@ -627,7 +645,7 @@ namespace Igtampe.Clothespin.API.Controllers {
 
             //Check the session:
             Session? S = await Task.Run(() => SessionManager.Manager.FindSession(SessionID));
-            if (S is null) { return BadRequest("Invalid session"); }
+            if (S is null) { return Unauthorized("Invalid session"); }
 
             //Get the person
             Person? P = await DB.Person.FirstOrDefaultAsync(P => P.ID == Request.PersonID && P.TiedUser != null && P.TiedUser.Username == S.UserID);
@@ -664,16 +682,19 @@ namespace Igtampe.Clothespin.API.Controllers {
         /// <param name="PersonID">ID of the person whose most used outfits you wish to get</param>
         /// <param name="Skip">Amount of outfits to skip</param>
         /// <param name="Take">Amount of outfits to take</param>
+        /// <param name="SessionID">ID of the session executing this request</param>
         /// <returns></returns>
         [HttpGet("Statistics/Outfits")]
-        public async Task<IActionResult> MostUsedOutfits(Guid? PersonID, int? Skip, int? Take) {
+        public async Task<IActionResult> MostUsedOutfits([FromHeader] Guid SessionID, [FromQuery] Guid? PersonID, [FromQuery] int? Skip, [FromQuery] int? Take) {
 
-            return PersonID == null
+            //Check the session:
+            Session? S = await Task.Run(() => SessionManager.Manager.FindSession(SessionID));
+            return S is null
+                ? Unauthorized("Invalid session")
+                : PersonID == null
                 ? BadRequest("A person ID is required")
-                : Ok(await DB.LogItem.Where(L => L.Owner != null && L.Owner.ID == PersonID) //I actually don't know what this'll return so we'll have to see
-                .GroupBy(L => L.Outfit).Select(G => new {
-                    Outfit = G.Key, Count = G.Count()
-                }).OrderByDescending(G => G.Count)
+                : Ok(await DB.LogItem.Where(L => L.Owner != null && L.Owner.ID == PersonID && L.Owner.TiedUser != null && L.Owner.TiedUser.Username==S.UserID)
+                .GroupBy(L => L.Outfit).Select(G => new { Outfit = G.Key, Count = G.Count()}).OrderByDescending(G => G.Count) //I actually don't know what this'll return so we'll have to see
                 .Skip(Skip ?? 0).Take(Take ?? 20).ToListAsync());
         }
 
