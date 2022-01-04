@@ -533,7 +533,7 @@ namespace Igtampe.Clothespin.API.Controllers {
         /// <param name="SessionID">ID of the session executing this request</param>
         /// <returns></returns>
         [HttpPut("Outfits")]
-        public async Task<IActionResult> UpdateOutfit([FromHeader] Guid SessionID, [FromBody] NameableEditableModRequest Request) {
+        public async Task<IActionResult> UpdateOutfit([FromHeader] Guid SessionID, [FromBody] NDPEditRequest Request) {
 
             if (Request.ID is null) { return BadRequest("Outfit ID must not be null"); }
 
@@ -548,8 +548,9 @@ namespace Igtampe.Clothespin.API.Controllers {
             if (O is null) { return NotFound("Outfit was not found, or is not owned by a person tied to the owner of this session"); }
 
             //Update the de-esta cosas
-            O.Name = string.IsNullOrWhiteSpace(Request.Name) ? O.Name : Request.Name;
-            O.Description = string.IsNullOrWhiteSpace(Request.Description) ? O.Description : Request.Description;
+            O.Name = Request.Name ?? O.Name;
+            O.Description = Request.Description ?? O.Description;
+            O.ImageURL = Request.ImageURL ?? O.ImageURL;
 
             //Update the DB
             DB.Outfit.Update(O);

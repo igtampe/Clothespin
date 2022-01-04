@@ -439,7 +439,7 @@
             <param name="SessionID">ID of the session executing this request</param>
             <returns></returns>
         </member>
-        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.UpdateOutfit(System.Guid,Igtampe.Clothespin.API.Requests.NameableEditableModRequest)">
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.UpdateOutfit(System.Guid,Igtampe.Clothespin.API.Requests.NDPEditRequest)">
             <summary>Update an outfit</summary>
             <param name="Request"></param>
             <param name="SessionID">ID of the session executing this request</param>
@@ -541,17 +541,20 @@
         <member name="P:Igtampe.Clothespin.API.Requests.ChangePasswordRequest.New">
             <summary>New Password</summary>
         </member>
-        <member name="T:Igtampe.Clothespin.API.Requests.NameableEditableModRequest">
-            <summary>Request to modify an outfit</summary>
+        <member name="T:Igtampe.Clothespin.API.Requests.NDPEditRequest">
+            <summary>Request to modify any item that is Nameable, Describable, and Depictable</summary>
         </member>
-        <member name="P:Igtampe.Clothespin.API.Requests.NameableEditableModRequest.ID">
+        <member name="P:Igtampe.Clothespin.API.Requests.NDPEditRequest.ID">
             <summary>ID of the object to update</summary>
         </member>
-        <member name="P:Igtampe.Clothespin.API.Requests.NameableEditableModRequest.Name">
+        <member name="P:Igtampe.Clothespin.API.Requests.NDPEditRequest.Name">
             <summary>Name to update the object to</summary>
         </member>
-        <member name="P:Igtampe.Clothespin.API.Requests.NameableEditableModRequest.Description">
+        <member name="P:Igtampe.Clothespin.API.Requests.NDPEditRequest.Description">
             <summary>Description to update the object to</summary>
+        </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.NDPEditRequest.ImageURL">
+            <summary>ImageURL to update the object to</summary>
         </member>
         <member name="T:Igtampe.Clothespin.API.Requests.OutfitCreateRequest">
             <summary>Request to create an outfit</summary>
