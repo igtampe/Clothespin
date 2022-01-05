@@ -4,6 +4,7 @@ import SearchIcon from "@material-ui/icons/Search"
 import WearableDisplay from "./WearableComponents/WearableDisplay";
 import Cookies from 'universal-cookie';
 import useWindowDimensions from "./Hooks/useWindowDimensions";
+import OutfitDisplay from "./OutfitComponents/OutfitDisplay";
 
 const cookies = new Cookies();
 
@@ -28,8 +29,8 @@ function ClosetTabs(props) {
             <Tab icon={<img src="/images/clear/overshirt.png" alt="Overshirts" width={IconWidth} />} label={"Overshirts (" + (props.Overshirts === undefined ? "..." : props.Overshirts.length) + ")"} />
             <Tab icon={<img src="/images/clear/belt.png" alt="Belts" width={IconWidth} />} label={"Belts (" + (props.Belts === undefined ? "..." : props.Belts.length) + ")"} />
             <Tab icon={<img src="/images/clear/pants.png" alt="Pants" width={IconWidth} />} label={"Pants (" + (props.Pants === undefined ? "..." : props.Pants.length) + ")"} />
-            <Tab icon={<img src="/images/clear/sock.png" alt="Socks" width={IconWidth} />} label={"Socks (" + (props.Socks === undefined ? "..." : props.Socks.length) + ")"} />
-            <Tab icon={<img src="/images/clear/shoe.png" alt="Shoes" width={IconWidth} />} label={"Shoes (" + (props.Shoes === undefined ? "..." : props.Shoes.length) + ")"} />
+            <Tab icon={<img src="/images/clear/socks.png" alt="Socks" width={IconWidth} />} label={"Socks (" + (props.Socks === undefined ? "..." : props.Socks.length) + ")"} />
+            <Tab icon={<img src="/images/clear/shoes.png" alt="Shoes" width={IconWidth} />} label={"Shoes (" + (props.Shoes === undefined ? "..." : props.Shoes.length) + ")"} />
             <Tab icon={<img src="/images/clear/Accessory.png" alt="Accesories" width={IconWidth} />} label={"Accessories (" + (props.Accessories === undefined ? "..." : props.Accessories.length) + ")"} />
         </Tabs>
 
@@ -93,8 +94,7 @@ export default function ClosetComponent() {
                     Outfits={Outfits} Shirts={Shirts} Overshirts={Overshirts} Belts={Belts} Pants={Pants} Socks={Socks} Shoes={Shoes} Accessories={Accessories} /> : ""}
 
                 <TabPanel value={value} index={0}>
-                    <h1>Outfit Management Panel</h1>
-                    Coming soon!
+                    <OutfitDisplay query={query} vertical={Vertical} collection={Outfits} setCollection={setOutfits}/>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                     <WearableDisplay query={query} types="Shirts" type="Shirt" collection={Shirts} setCollection={setShirts} sizeable washable vertical={Vertical}/>
