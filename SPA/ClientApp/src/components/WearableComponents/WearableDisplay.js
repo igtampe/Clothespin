@@ -7,7 +7,7 @@ import WearableEditor from "./WearableEditor";
 
 const cookies = new Cookies();
 
-function SortSelect(props) {
+export function SortSelect(props) {
     return (
         <FormControl fullWidth style={{marginTop:"15px"}}>
             <InputLabel fullWidth>Sort Order</InputLabel>
@@ -24,7 +24,7 @@ function SortSelect(props) {
 
 }
 
-function SubSelect(props) {
+export function SubSelect(props) {
     return (<FormControl fullWidth style={{marginTop:"15px"}}>
         <InputLabel fullWidth>Show</InputLabel>
         <Select fullWidth label="Label" value={props.subType} onChange={(event) => {
@@ -36,7 +36,7 @@ function SubSelect(props) {
         </Select></FormControl>)
 }
 
-function WashSelect(props) {
+export function WashSelect(props) {
     return (<FormControl fullWidth style={{marginTop:"15px"}}>
         <InputLabel fullWidth>Wash State</InputLabel>
         <Select fullWidth label="Label" value={props.washState} onChange={(event) => {
