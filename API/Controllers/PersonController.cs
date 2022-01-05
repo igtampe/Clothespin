@@ -503,7 +503,7 @@ namespace Igtampe.Clothespin.API.Controllers {
             }
 
             if (Request.SocksID is not null) {
-                Socks = await DB.Socks.FirstOrDefaultAsync(S => S.ID == Request.PantID);
+                Socks = await DB.Socks.FirstOrDefaultAsync(S => S.ID == Request.SocksID);
                 if (Socks is null) { return NotFound($"Could not find Socks with ID {Request.SocksID}"); }
             }
 
@@ -512,6 +512,7 @@ namespace Igtampe.Clothespin.API.Controllers {
                 Belt = Belt,
                 Description = Request.Description,
                 Name = Request.Name,
+                ImageURL = Request.ImageURL,
                 Overshirts = Overshirts,
                 Owner = P,
                 Pants = Pants,

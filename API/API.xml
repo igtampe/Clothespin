@@ -565,6 +565,9 @@
         <member name="P:Igtampe.Clothespin.API.Requests.OutfitCreateRequest.Description">
             <summary>Description of the outfit</summary>
         </member>
+        <member name="P:Igtampe.Clothespin.API.Requests.OutfitCreateRequest.ImageURL">
+            <summary>ImageURL of the outfit</summary>
+        </member>
         <member name="P:Igtampe.Clothespin.API.Requests.OutfitCreateRequest.PersonID">
             <summary>ID of the person this Outfit will belong to</summary>
         </member>
