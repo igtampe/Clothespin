@@ -184,7 +184,7 @@ export default function WearableCard(props) {
                                                 <MenuItem value={5}>Washed</MenuItem>
                                             </Select></FormControl> : ""}
                                 </td>
-                                <td><IconButton disabled={!Wearable} onClick={() => setConfirmOpen(true)}><Delete /></IconButton></td>
+                                <td><IconButton disabled={!Wearable || props.disableDelete} onClick={() => setConfirmOpen(true)}><Delete /></IconButton></td>
                                 <td><IconButton disabled={!Wearable} onClick={() => setEditorOpen(true)}><Edit /></IconButton></td>
                         </tr></>
                         }
