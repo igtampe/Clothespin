@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import {
     IconButton, Accordion, AccordionDetails, AccordionSummary,
-    Dialog, DialogTitle, DialogContent, DialogActions, Snackbar, Button, Grid
+    Dialog, DialogTitle, DialogContent, DialogActions, Snackbar, Button, Grid, Divider
 } from "@material-ui/core";
 import { ExpandMore, Edit, Delete } from '@material-ui/icons'
 import Cookies from 'universal-cookie';
 import { Alert } from "reactstrap";
 import OutfitEditor from "./OutfitEditor";
 import WearableMicroCard from "../WearableComponents/WearableMicroCard";
+import WearableLabel from "../WearableComponents/WearableLabel";
 
 const cookies = new Cookies();
 
@@ -67,82 +68,52 @@ export default function OutfitCard(props) {
                     </div>
                 </AccordionSummary>
                 <AccordionDetails>
-
-
+                    <Divider/>
                     <Grid container spacing={2}>
-
                         <Grid item xs={12}>
-
                             <Grid container spacing={2}>
 
-                                {props.outfit.shirt ? <>
+                                {props.outfit.shirt ?
                                     <Grid item xs={12}>
-                                        <i>Shirt:</i>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <WearableMicroCard wearable={props.outfit.shirt} type='Shirt' washable /><br />
-                                    </Grid>
-                                </> : ""}
+                                        <img src={"/images/clear/shirt.png"} alt={'shirt'} height='25px' style={{ marginLeft:'5px', marginRight: '5px' }}/> <b>Shirt:</b>
+                                        <br/><WearableLabel wearable={props.outfit.shirt} type={'shirt'}/>
+                                    </Grid> : ""}
 
-                                {props.outfit.overshirts && props.outfit.overshirts.length > 0 ? <>
+                                {props.outfit.overshirts && props.outfit.overshirts.length > 0 ?
                                     <Grid item xs={12}>
-                                        <i>Overshirt(s)</i><br />
-                                    </Grid>
-                                    {props.outfit.overshirts.map(o => (
-                                        <Grid item xs={12}>
-                                            <WearableMicroCard wearable={o} type='Overshirt' washable />
-                                        </Grid>
-                                    ))}
+                                        <img src={"/images/clear/overshirt.png"} alt={'overshirt'} height='25px' style={{ marginLeft:'5px', marginRight: '5px' }}/> <b>Overshirts:</b><br/>  
+                                        {props.outfit.overshirts.map(p=>(<WearableLabel wearable={p} type={'overshirt'}/>))}
+                                    </Grid>: ""}
 
-                                </> : ""}
+                                {props.outfit.belt ?
+                                    <Grid item xs={12}>
+                                        <img src={"/images/clear/belt.png"} alt={'belt'} height='25px' style={{ marginLeft:'5px', marginRight: '5px' }}/> <b>Belt:</b>
+                                        <br/><WearableLabel wearable={props.outfit.belt} type={'belt'}/>
+                                    </Grid>: ""}
 
-                                {props.outfit.belt ? <>
-                                    <Grid item xs={12}><br />
-                                        <i>Belt</i><br />
-                                    </Grid>
+                                {props.outfit.pants ?
                                     <Grid item xs={12}>
-                                        <WearableMicroCard wearable={props.outfit.belt} type='Belt' /><br />
-                                    </Grid>
-                                </> : ""}
+                                        <img src={"/images/clear/pants.png"} alt={'pants'} height='25px' style={{ marginLeft:'5px', marginRight: '5px' }}/> <b>Pants:</b>
+                                        <br/><WearableLabel wearable={props.outfit.pants} type={'pants'}/>
+                                    </Grid>: ""}
 
-                                {props.outfit.pants ? <>
+                                {props.outfit.socks ?
                                     <Grid item xs={12}>
-                                        <i>Pants</i><br />
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <WearableMicroCard wearable={props.outfit.pants} type='Pants' washable /><br />
-                                    </Grid>
-                                </> : ""}
+                                        <img src={"/images/clear/socks.png"} alt={'socks'} height='25px' style={{ marginLeft:'5px', marginRight: '5px' }}/> <b>Socks:</b>
+                                        <br/><WearableLabel wearable={props.outfit.socks} type={'socks'}/>
+                                    </Grid>: ""}
 
-                                {props.outfit.socks ? <>
+                                {props.outfit.shoes ?
                                     <Grid item xs={12}>
-                                        <i>Socks</i><br />
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <WearableMicroCard wearable={props.outfit.socks} type='Socks' washable /><br />
-                                    </Grid>
-                                </> : ""}
+                                        <img src={"/images/clear/shoes.png"} alt={'shoes'} height='25px' style={{ marginLeft:'5px', marginRight: '5px' }}/> <b>Shoes:</b>
+                                        <br/><WearableLabel wearable={props.outfit.shoes} type={'shoes'}/>
+                                    </Grid>: ""}
 
-                                {props.outfit.shoes ? <>
+                                {props.outfit.accessories && props.outfit.accessories.length > 0 ?
                                     <Grid item xs={12}>
-                                        <i>Shoes</i><br />
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <WearableMicroCard wearable={props.outfit.shoes} type='Shoes' /><br />
-                                    </Grid>
-                                </> : ""}
-
-                                {props.outfit.accessories && props.outfit.accessories.length > 0 ? <>
-                                    <Grid item xs={12}>
-                                        <i>Accessories</i><br />
-                                    </Grid>
-                                    {props.outfit.accessories ? props.outfit.accessories.map(o => (
-                                        <Grid item xs={12}>
-                                            <WearableMicroCard wearable={o} type='Accessory' />
-                                        </Grid>
-                                    )) : ""}
-                                    <br />
-                                </> : ""}
+                                        <img src={"/images/clear/accessory.png"} alt={'accessory'} height='25px' style={{ marginLeft:'5px', marginRight: '5px' }}/> <b>Accessories:</b><br/>
+                                        {props.outfit.accessories.map(p=>(<WearableLabel wearable={p} type={'accessory'}/>))}
+                                    </Grid>: ""}
                             </Grid>
                         </Grid>
 
