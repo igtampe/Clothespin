@@ -4,6 +4,7 @@ import { Alert } from "reactstrap";
 import Cookies from 'universal-cookie';
 import { ExpandMore } from '@material-ui/icons'
 import WearablePicker from "../WearableComponents/WearablePicker";
+import WearableLabel from "../WearableComponents/WearableLabel";
 
 const cookies = new Cookies();
 
@@ -191,12 +192,7 @@ export default function OutfitCreator(props) {
                                             ? <i style={{ color: '#707070' }}> Select an item</i>
                                             : <>{p.isCollection
                                                 ? <> {p.selected.length} item(s) selected</>
-                                                : <table>
-                                                    <tr>
-                                                        <td><img src={p.selected.imageURL === "" ? 'images/' + p.type + '.png' : p.selected.imageURL} alt="item" height='25px' style={{ marginLeft: '5px', marginRight: '5px' }} /></td>
-                                                        <td>{p.selected.name}</td>
-                                                    </tr>
-                                                </table>}</>
+                                                : <WearableLabel wearable={p.selected} type={p.type}/>}</>
                                         }</div>
                                 </AccordionSummary>
                                 <AccordionDetails>
