@@ -73,16 +73,16 @@ export default function WearableMicroCard(props) {
                 }
                 else {
                     setWearable(data)
-                    setResult({
-                        severity: "success",
-                        text: Wearable.name + "'s wash state has been updated"
-                    })
+                    if(props.setWearable) {props.setWearable(data)}
+                    setResult({ severity: "success", text: Wearable.name + "'s wash state has been updated" })
                     setSnackOpen(true);
                 }
             })
     }
 
     const toggleExpanded = (event) => { setExpanded(!expanded); }
+
+    if(!Wearable) { return(<></>) }
 
     return (
         <React.Fragment>
