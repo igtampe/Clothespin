@@ -26,7 +26,7 @@
         /// <summary>Extends the Session expiration date to 15 minutes after now</summary>
         public void ExtendSession() {
             if (ExpirationDate != DateTime.MinValue && Expired) { throw new InvalidOperationException("Session is already expired"); }
-            ExpirationDate = DateTime.Now.AddMinutes(15);
+            ExpirationDate = DateTime.Now.AddHours(12);
         }
 
         /// <summary>Compares this Session to another object</summary>
