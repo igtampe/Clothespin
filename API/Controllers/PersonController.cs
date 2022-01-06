@@ -543,7 +543,15 @@ namespace Igtampe.Clothespin.API.Controllers {
             if (S is null) { return Unauthorized("Invalid session"); }
 
             //Get the outfit:
-            Outfit? O = await DB.Outfit.FirstOrDefaultAsync(O => O.ID==Request.ID && 
+            Outfit? O = await DB.Outfit //Include these primarily for the frontend
+                .Include(O => O.Shirt)
+                .Include(O => O.Overshirts)
+                .Include(O => O.Pants)
+                .Include(O => O.Shoes)
+                .Include(O => O.Socks)
+                .Include(O => O.Belt)
+                .Include(O => O.Accessories)
+                .FirstOrDefaultAsync(O => O.ID==Request.ID && 
             O.Owner != null && O.Owner.TiedUser != null && O.Owner.TiedUser.Username == S.UserID);
 
             if (O is null) { return NotFound("Outfit was not found, or is not owned by a person tied to the owner of this session"); }
@@ -617,7 +625,8 @@ namespace Igtampe.Clothespin.API.Controllers {
                 .Include(L => L.Outfit).ThenInclude(O => O.Socks)
                 .Include(L => L.Outfit).ThenInclude(O => O.Belt)
                 .Include(L => L.Outfit).ThenInclude(O => O.Accessories)
-                .Where(O => O.Owner != null && O.Owner.ID == PersonID && O.Owner.TiedUser != null && O.Owner.TiedUser.Username==S.UserID &&
+                .Where(O => O.Owner != null && O.Owner.ID == PersonID && O.Owner.TiedUser != null && O.Owner.TiedUser.Username==S.UserID)
+                .Where(O=> (O.Note.ToLower().Contains(Query ?? ""))||
                     ((O.Outfit != null && (O.Outfit.Name.ToLower().Contains(Query ?? "") || O.Outfit.Description.ToLower().Contains(Query ?? ""))) ||
                     (O.Outfit.Shirt != null && (O.Outfit.Shirt.Name.ToLower().Contains(Query ?? "") || O.Outfit.Shirt.Description.ToLower().Contains(Query ?? "")))||
                     (O.Outfit.Overshirts != null && (O.Outfit.Overshirts.Any(O=>O.Name.ToLower().Contains(Query ?? "") || O.Description.ToLower().Contains(Query ?? "")))) ||
