@@ -47,7 +47,7 @@ export default function OutfitDisplay(props) {
                 return response.json()
             }).then(data => {
                 console.log(data)
-                if (data === undefined) { } else {
+                if (data === undefined) { return; } else {
                     props.setCollection(data)
                     setDisplayedItems(20);
                     setNoMas(data.length !== 20)
