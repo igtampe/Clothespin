@@ -30,12 +30,10 @@ export default function OutfitDisplay(props) {
             headers: { 'Content-Type': 'application/json', 'SessionID': cookies.get('SessionID') },
         };
 
-        console.log(requestOptions.headers);
         var url = "API/Persons/Outfits"
             + "?PersonID=" + cookies.get("PersonID")
             + "&Sort=" + sortOrder
             + (props.query !== undefined && props.query !== "" ? "&Query=" + props.query : "")
-        console.log(url)
 
         fetch(url,
             requestOptions)
@@ -46,12 +44,10 @@ export default function OutfitDisplay(props) {
                 }
                 return response.json()
             }).then(data => {
-                console.log(data)
                 if (data === undefined) { return; } else {
                     props.setCollection(data)
                     setDisplayedItems(20);
                     setNoMas(data.length !== 20)
-                    console.log(data)
                 }
                 setColLoading(false)
             })
@@ -65,14 +61,12 @@ export default function OutfitDisplay(props) {
             headers: { 'Content-Type': 'application/json', 'SessionID': cookies.get('SessionID') },
         };
 
-        console.log(requestOptions.headers);
         var url = "API/Persons/Outfits"
             + "?PersonID=" + cookies.get("PersonID")
             + "&Sort=" + sortOrder
             + (props.query !== undefined && props.query !== "" ? "&Query=" + props.query : "")
             + "&Skip=" + displayedItems
 
-        console.log(url)
 
         fetch(url,
             requestOptions)
@@ -84,7 +78,6 @@ export default function OutfitDisplay(props) {
                 }
                 return response.json()
             }).then(data => {
-                console.log(data)
                 if (data === undefined) { } else {
                     props.setCollection(props.collection.concat(data))
                     setDisplayedItems(displayedItems + 20);

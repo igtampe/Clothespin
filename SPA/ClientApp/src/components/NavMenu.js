@@ -48,36 +48,28 @@ export default function ButtonAppBar() {
   const [Editor, setEditor] = useState(false);
 
   if (cookies.get('SessionID') === undefined && User.ready === false) {
-    console.log("No cookie")
     setUser({ ...User, ready: true })
   } else if (User.ready === false && User.inprogress === false) {
     setUser({ ...User, inprogress: true })
     //We have a cookie and a session. Let's get it
-
-    console.log("The cookie: " + cookies.get('SessionID'));
 
     const requestOptions = {
       method: 'GET',
       headers: { 'Content-Type': 'application/json', 'SessionID': cookies.get('SessionID') },
     };
 
-    console.log(requestOptions.headers);
-
     fetch("API/Users", requestOptions)
       .then(response => {
         if (!response.ok) {
-          console.log(response);
           setUser({ ...User, ready: true })
           return undefined
         }
         return response.json()
       }).then(data => {
-        console.log(data)
         if (data === undefined) {
           setSessionExpired(true)
         } else {
           //We have a user!!!!!
-          console.log(data);
           setUser({
             Username: data.userID,
             ready: true,
@@ -99,13 +91,11 @@ export default function ButtonAppBar() {
           fetch("API/Persons/" + cookies.get("PersonID"), PersonRequestOptions)
             .then(response => {
               if (!response.ok) {
-                console.log(response);
                 setUser({ ...User, ready: true })
                 return undefined
               }
               return response.json()
             }).then(data => {
-              console.log(data)
               if (data === undefined) {
                 setPerson({ ...Person, status: 1 });
                 setPersonPicker(true)

@@ -95,15 +95,12 @@ export default function WearableDisplay(props) {
             headers: { 'Content-Type': 'application/json', 'SessionID': cookies.get('SessionID') },
         };
 
-        console.log(requestOptions.headers);
         var url = "API/Persons/Clothes/" + props.types
             + "?PersonID=" + cookies.get("PersonID")
             + "&Sort=" + sortOrder
             + (props.query !== undefined && props.query !== "" ? "&Query=" + props.query : "")
             + (subType === -1 ? "" : "&Type=" + subType)
             + (washState === -1 ? "" : "&State=" + washState)
-
-        console.log(url)
 
         fetch(url,
             requestOptions)
@@ -114,7 +111,6 @@ export default function WearableDisplay(props) {
                 }
                 return response.json()
             }).then(data => {
-                console.log(data)
                 if (data === undefined) { } else {
                     props.setCollection(data)
                     setDisplayedItems(20);
@@ -132,7 +128,6 @@ export default function WearableDisplay(props) {
             headers: { 'Content-Type': 'application/json', 'SessionID': cookies.get('SessionID') },
         };
 
-        console.log(requestOptions.headers);
         var url = "API/Persons/Clothes/" + props.types
             + "?PersonID=" + cookies.get("PersonID")
             + "&Sort=" + sortOrder
@@ -153,7 +148,6 @@ export default function WearableDisplay(props) {
                 }
                 return response.json()
             }).then(data => {
-                console.log(data)
                 if (data === undefined) { } else {
                     props.setCollection(props.collection.concat(data))
                     setDisplayedItems(displayedItems + 20);

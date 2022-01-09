@@ -7,7 +7,6 @@ import { ExpandMore, Edit, Delete } from '@material-ui/icons'
 import Cookies from 'universal-cookie';
 import { Alert } from "reactstrap";
 import OutfitEditor from "./OutfitEditor";
-import WearableMicroCard from "../WearableComponents/WearableMicroCard";
 import WearableLabel from "../WearableComponents/WearableLabel";
 
 const cookies = new Cookies();
