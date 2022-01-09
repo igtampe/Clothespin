@@ -44,10 +44,10 @@ namespace Igtampe.Clothespin.API.Controllers {
             //That is all we will check the session for. In some future other project we may have an `Image Uploader` role to verify but for now this is fine
             string? ContentType = Request.ContentType;
 
-            int MaxSize = 1024*1024*10;
+            int MaxSize = 1024*1024*1;
 
             if (ContentType != "image/png" && ContentType != "image/jpeg" && ContentType != "image/gif") { return BadRequest("File must be PNG, JPG, or GIF"); }
-            if (Request.ContentLength > MaxSize) { return BadRequest("File must be less than 10mb in size"); } //Add an extra 1 byte just in case
+            if (Request.ContentLength > MaxSize) { return BadRequest("File must be less than 1mb in size"); } //Add an extra 1 byte just in case
 
             Image I = new() { Type = ContentType };
 
@@ -55,7 +55,7 @@ namespace Igtampe.Clothespin.API.Controllers {
             using (var memoryStream = new MemoryStream()) {
                 await Request.Body.CopyToAsync(memoryStream);
                 I.Data = memoryStream.ToArray();
-                if (I.Data.Length > MaxSize) { return BadRequest("File must be less than 10mb in size"); }
+                if (I.Data.Length > MaxSize) { return BadRequest("File must be less than 1mb in size"); }
             }
 
             DB.Image.Add(I);
