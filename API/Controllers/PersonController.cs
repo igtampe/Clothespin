@@ -606,11 +606,13 @@ namespace Igtampe.Clothespin.API.Controllers {
         /// <param name="PersonID">ID of the person whose logs you wish to get</param>
         /// <param name="Skip">Logs to skip</param>
         /// <param name="Take">Logs to take</param>
-        /// <param name="Query">Search query for outfits and wearables</param>
+        /// <param name="Query">Search query for note and outfit name</param>
         /// <param name="SessionID">ID of the session executing this request</param>
+        /// <param name="EndDate">End date of the search</param>
+        /// <param name="StartDate">Start date of the search</param>
         /// <returns></returns>
         [HttpGet("Log")]
-        public async Task<IActionResult> GetLog([FromHeader] Guid SessionID, [FromQuery] Guid? PersonID, [FromQuery] int? Skip, [FromQuery] int? Take, [FromQuery] string? Query) {
+        public async Task<IActionResult> GetLog([FromHeader] Guid SessionID, [FromQuery] Guid? PersonID, [FromQuery] int? Skip, [FromQuery] int? Take, [FromQuery] string? Query, [FromQuery] DateTime? StartDate, [FromQuery] DateTime? EndDate) {
 
             //Check the session:
             Session? S = await Task.Run(() => SessionManager.Manager.FindSession(SessionID));
@@ -625,18 +627,21 @@ namespace Igtampe.Clothespin.API.Controllers {
                 .Include(L => L.Outfit).ThenInclude(O => O.Socks)
                 .Include(L => L.Outfit).ThenInclude(O => O.Belt)
                 .Include(L => L.Outfit).ThenInclude(O => O.Accessories)
-                .Where(O => O.Owner != null && O.Owner.ID == PersonID && O.Owner.TiedUser != null && O.Owner.TiedUser.Username==S.UserID)
-                .Where(O=> (O.Note.ToLower().Contains(Query ?? ""))||
-                    ((O.Outfit != null && (O.Outfit.Name.ToLower().Contains(Query ?? "") || O.Outfit.Description.ToLower().Contains(Query ?? ""))) ||
-                    (O.Outfit.Shirt != null && (O.Outfit.Shirt.Name.ToLower().Contains(Query ?? "") || O.Outfit.Shirt.Description.ToLower().Contains(Query ?? "")))||
-                    (O.Outfit.Overshirts != null && (O.Outfit.Overshirts.Any(O=>O.Name.ToLower().Contains(Query ?? "") || O.Description.ToLower().Contains(Query ?? "")))) ||
-                    (O.Outfit.Pants != null && (O.Outfit.Pants.Name.ToLower().Contains(Query ?? "") || O.Outfit.Pants.Description.ToLower().Contains(Query ?? ""))) ||
-                    (O.Outfit.Shoes != null && (O.Outfit.Shoes.Name.ToLower().Contains(Query ?? "") || O.Outfit.Shoes.Description.ToLower().Contains(Query ?? ""))) ||
-                    (O.Outfit.Socks != null && (O.Outfit.Socks.Name.ToLower().Contains(Query ?? "") || O.Outfit.Socks.Description.ToLower().Contains(Query ?? ""))) ||
-                    (O.Outfit.Belt != null && (O.Outfit.Belt.Name.ToLower().Contains(Query ?? "") || O.Outfit.Belt.Description.ToLower().Contains(Query ?? ""))) ||
-                    (O.Outfit.Accessories != null && (O.Outfit.Accessories.Any(O => O.Name.ToLower().Contains(Query ?? "") || O.Description.ToLower().Contains(Query ?? ""))))
-                        )
-                    )
+                .Where(O => O.Owner != null && O.Owner.ID == PersonID && O.Owner.TiedUser != null && O.Owner.TiedUser.Username == S.UserID)
+                .Where(O => (O.Note.ToLower().Contains(Query ?? "")) || O.Outfit.Name.ToLower().Contains(Query ?? ""))
+                .Where(O=> (O.Date > (StartDate ?? DateTime.MinValue)) && (O.Date < (EndDate ?? DateTime.Now)))
+
+                //This supermassive query doesn't work and sabes que? Is not necessary!
+//                    ((O.Outfit != null && (O.Outfit.Name.ToLower().Contains(Query ?? "") || O.Outfit.Description.ToLower().Contains(Query ?? ""))) ||
+//                    (O.Outfit.Shirt != null && (O.Outfit.Shirt.Name.ToLower().Contains(Query ?? "") || O.Outfit.Shirt.Description.ToLower().Contains(Query ?? "")))||
+//                    (O.Outfit.Overshirts != null && (O.Outfit.Overshirts.Any(O=>O.Name.ToLower().Contains(Query ?? "") || O.Description.ToLower().Contains(Query ?? "")))) ||
+//                    (O.Outfit.Pants != null && (O.Outfit.Pants.Name.ToLower().Contains(Query ?? "") || O.Outfit.Pants.Description.ToLower().Contains(Query ?? ""))) ||
+//                    (O.Outfit.Shoes != null && (O.Outfit.Shoes.Name.ToLower().Contains(Query ?? "") || O.Outfit.Shoes.Description.ToLower().Contains(Query ?? ""))) ||
+//                    (O.Outfit.Socks != null && (O.Outfit.Socks.Name.ToLower().Contains(Query ?? "") || O.Outfit.Socks.Description.ToLower().Contains(Query ?? ""))) ||
+//                    (O.Outfit.Belt != null && (O.Outfit.Belt.Name.ToLower().Contains(Query ?? "") || O.Outfit.Belt.Description.ToLower().Contains(Query ?? ""))) ||
+//                    (O.Outfit.Accessories != null && (O.Outfit.Accessories.Any(O => O.Name.ToLower().Contains(Query ?? "") || O.Description.ToLower().Contains(Query ?? ""))))
+//                        )
+                    
                 .OrderByDescending(L => L.Date).Skip(Skip ?? 0).Take(Take ?? 20);
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 

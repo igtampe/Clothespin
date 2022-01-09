@@ -468,13 +468,15 @@
             <param name="SessionID">ID of the session executing this request</param>
              <returns></returns>
         </member>
-        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.GetLog(System.Guid,System.Nullable{System.Guid},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String)">
+        <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.GetLog(System.Guid,System.Nullable{System.Guid},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
             <summary>Gets a log of the specified person (Sorted in descending date order)</summary>
             <param name="PersonID">ID of the person whose logs you wish to get</param>
             <param name="Skip">Logs to skip</param>
             <param name="Take">Logs to take</param>
-            <param name="Query">Search query for outfits and wearables</param>
+            <param name="Query">Search query for note and outfit name</param>
             <param name="SessionID">ID of the session executing this request</param>
+            <param name="EndDate">End date of the search</param>
+            <param name="StartDate">Start date of the search</param>
             <returns></returns>
         </member>
         <member name="M:Igtampe.Clothespin.API.Controllers.PersonController.AddLog(System.Guid,Igtampe.Clothespin.API.Requests.AddLogRequest)">
