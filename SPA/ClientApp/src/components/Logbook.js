@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Cookies from "universal-cookie";
 import OutfitMiniCard from "./OutfitComponents/OutfitMiniCard";
 import useWindowDimensions from "./Hooks/useWindowDimensions";
+import LogCreator from "./LogbookComponents/LogCreator";
 
 const cookies = new Cookies();
 
@@ -16,6 +17,8 @@ export default function LogbookComponent() {
     const [loading, setLoading] = useState(false)
     const [startDate, setStartDate] = useState("")
     const [endDate, setEndDate] = useState("")
+
+    const [editorOpen, setEditorOpen] = useState(false);
 
     const [displayedItems, setDisplayedItems] = useState(0);
     const [noMas, setNoMas] = useState(false)
@@ -99,16 +102,22 @@ export default function LogbookComponent() {
             <Box sx={{ display: 'flex', alignItems: 'flex-end' }} style={{ marginLeft: "25px", marginRight: "25px" }}>
                 <TextField fullWidth label="Search" value={query} onChange={(event) => { setQuery(event.target.value) }} />
                 <IconButton onClick={startSearch}><Search /></IconButton>
-                <IconButton onClick={startSearch}><Add /></IconButton>
+                <IconButton onClick={()=>setEditorOpen(true)}><Add /></IconButton>
             </Box>
 
             <Box sx={{ display: 'flex', alignItems: 'flex-end' }} style={{ marginLeft: "25px", marginRight: "25px" }}>
                 <Grid container style={{ marginTop: '15px' }} spacing={2}>
                     <Grid item xs={Vertical ? 12 : 6}>
-                        <TextField label="Start" type="date" value={startDate} onChange={(event) => { setStartDate(event.target.value) }} InputLabelProps={{ shrink: true, }} fullWidth />
+                        <TextField label="Start" type="date" value={startDate} onChange={(event) => { 
+                            setStartDate(event.target.value) 
+                            startSearch();
+                        }} InputLabelProps={{ shrink: true, }} fullWidth />
                     </Grid>
                     <Grid item xs={Vertical ? 12 : 6}>
-                        <TextField label="End" type="date" value={endDate} onChange={(event) => { setEndDate(event.target.value) }} InputLabelProps={{ shrink: true, }} fullWidth />
+                        <TextField label="End" type="date" value={endDate} onChange={(event) => { 
+                            setEndDate(event.target.value) 
+                            startSearch();
+                        }} InputLabelProps={{ shrink: true, }} fullWidth />
                     </Grid>
                 </Grid>
             </Box>
@@ -160,6 +169,8 @@ export default function LogbookComponent() {
             <div style={{ textAlign: 'center', marginTop: '50px' }}>
                 <Button hidden={noMas || loading} variant='contained' color='primary' onClick={getMas}> Get More </Button>
             </div>
+
+            <LogCreator open={editorOpen} setOpen={setEditorOpen} vertical={Vertical} setLogs={setLogs} />
 
         </React.Fragment>
     );
