@@ -25,7 +25,10 @@ export default function OutfitMiniCard(props) {
 
     return (
         <React.Fragment>
-            <Button disabled={!Outfit} onClick={() => setEditorOpen(true)} style={{ textTransform: "none", textAlign:'left', lineHeight:'1.2em' , minWidth:'200px', maxWidth:'200px'}} variant='outlined'> 
+            <Button disabled={!Outfit} onClick={props.onClick ? props.onClick : () => setEditorOpen(true)} 
+            style={{ ...props.style, textTransform: "none", textAlign:'left', lineHeight:'1.2em' , minWidth:'200px', maxWidth:'200px'}} 
+            variant={props.variant ?? 'outlined'} color={props.color ?? ''}>
+
             <table style={{minWidth:'100%'}}>
                 <tr>
                     <td rowSpan={2} style={{minWidth:'50px', maxWidth:'50px'}}> 
