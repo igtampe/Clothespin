@@ -117,13 +117,14 @@ export default function OutfitCard(props) {
                         </Grid>
 
                         <Grid item xs={12}>
+                            {props.children ?? 
                             <table style={{ minWidth: "265px", maxWidth: "265px", justifyContent: "center" }}>
                                 <tr>
                                     <td style={{ minWidth: "160px" }}></td>
                                     <td><IconButton disabled={!Outfit} onClick={() => setConfirmOpen(true)}><Delete /></IconButton></td>
                                     <td><IconButton disabled={!Outfit} onClick={() => setEditorOpen(true)}><Edit /></IconButton></td>
                                 </tr>
-                            </table>
+                            </table>}
                         </Grid>
 
                     </Grid>
