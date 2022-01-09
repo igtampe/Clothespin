@@ -412,8 +412,9 @@ namespace Igtampe.Clothespin.API.Controllers {
                 .Include(O => O.Socks)
                 .Include(O => O.Belt)
                 .Include(O => O.Accessories)
-                .Where(O=>O.Owner!= null && O.Owner.TiedUser!= null && O.Owner.TiedUser.Username==S.UserID);
-                
+                .Where(O=>O.Owner!= null && O.Owner.TiedUser!= null && O.Owner.TiedUser.Username==S.UserID)
+                .Where(O => !O.Deleted);
+
             if (Request.ShirtID is not null) { BaseSet = BaseSet.Where(O => O.Shirt != null && O.Shirt.ID == Request.ShirtID); }
             if (Request.PantID is not null) { BaseSet = BaseSet.Where(O => O.Pants != null && O.Pants.ID == Request.PantID); }
             if (Request.ShoesID is not null) { BaseSet = BaseSet.Where(O => O.Shoes != null && O.Shoes.ID == Request.ShoesID); }
