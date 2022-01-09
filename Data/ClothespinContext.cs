@@ -42,5 +42,7 @@ namespace Igtampe.Clothespin.Data {
         public DbSet<Shoes> Shoes { get; set; }
 
         public DbSet<Socks> Socks { get; set; }
+
+        public DbSet<Image> Image { get; set; }
     }
 }
