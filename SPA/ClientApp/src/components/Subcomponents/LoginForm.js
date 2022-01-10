@@ -53,7 +53,6 @@ export default function LoginForm() {
             body: JSON.stringify({ "username": ID, "password": Pin })
         };
 
-        console.log(requestOptions.body);
 
         fetch("API/Users", requestOptions)
             .then(response => {
@@ -64,7 +63,6 @@ export default function LoginForm() {
                 }
                 return response.json()
             }).then(data => {
-                console.log(data)
                 if (data === undefined) {
                 } else if (ResultOpen) {
                     setResult({ Action: "Login", Text: data });
@@ -103,7 +101,6 @@ export default function LoginForm() {
             body: JSON.stringify({ "username": ID, "password": Pin })
         };
 
-        console.log(requestOptions.body);
 
         fetch("API/Users/register", requestOptions)
             .then(response => {
@@ -114,7 +111,6 @@ export default function LoginForm() {
                 }
                 return response.text();
             }).then(data => {
-                console.log(data)
                 if (data === undefined) {
                 } else if (data === "") {
 

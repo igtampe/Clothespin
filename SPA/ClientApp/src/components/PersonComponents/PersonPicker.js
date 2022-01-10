@@ -23,7 +23,6 @@ export default function PersonPicker(props) {
 
   if (props.open && Persons === undefined && loading === false) {
     setLoading(true)
-    console.log("Hello")
 
     //Lets get some people
     const requestOptions = {
@@ -31,7 +30,6 @@ export default function PersonPicker(props) {
       headers: { 'Content-Type': 'application/json', 'SessionID': cookies.get('SessionID') },
     };
 
-    console.log(requestOptions.headers);
 
     fetch("API/Persons", requestOptions)
       .then(response => {
@@ -41,9 +39,7 @@ export default function PersonPicker(props) {
         }
         return response.json()
       }).then(data => {
-        console.log(data)
         if (data === undefined) { } else {
-          console.log(data)
           setPersons(data)
           setLoading(false)
         }

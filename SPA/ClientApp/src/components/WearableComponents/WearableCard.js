@@ -73,21 +73,10 @@ export default function WearableCard(props) {
         var value = event.target.value;
         if (value === undefined) {
 
-            if (event.target.innerText === "MARK DIRTY") {
-                console.log("Dirty!")
-                value = 2
-            }
-            else if (event.target.innerText === "MARK CLEAN") {
-                console.log("Clean!")
-                value = 0
-            }
+            if (event.target.innerText === "MARK DIRTY") { value = 2 }
+            else if (event.target.innerText === "MARK CLEAN") { value = 0 }
             else {
-                console.log(event);
-                setResult({
-                    severity: "danger",
-                    text: "Unknown target washstate"
-                })
-
+                setResult({ severity: "danger", text: "Unknown target washstate" })
                 setSnackOpen(true);
                 return;
             }

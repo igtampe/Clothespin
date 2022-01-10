@@ -19,7 +19,6 @@ export default function LogoutButton() {
         };
     
         fetch("API/Users/Out",requestOptions).then( response => {
-          console.log(response.body)
           cookies.remove("SessionID")
           cookies.remove("PersonID")
           history.go("/Login")

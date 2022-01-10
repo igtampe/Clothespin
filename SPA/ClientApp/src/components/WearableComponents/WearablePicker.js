@@ -47,15 +47,12 @@ export default function WearablePicker(props) {
             headers: { 'Content-Type': 'application/json', 'SessionID': cookies.get('SessionID') },
         };
 
-        console.log(requestOptions.headers);
         var url = "API/Persons/Clothes/" + props.types
             + "?PersonID=" + cookies.get("PersonID")
             + "&Sort=" + sortOrder
             + "&Query=" + query
             + (subType === -1 ? "" : "&Type=" + subType)
             + (washState === -1 ? "" : "&State=" + washState)
-
-        console.log(url)
 
         fetch(url,
             requestOptions)
@@ -66,7 +63,6 @@ export default function WearablePicker(props) {
                 }
                 return response.json()
             }).then(data => {
-                console.log(data)
                 if (data === undefined) { } else {
                     setCollection(data)
                     setDisplayedItems(20);
@@ -84,7 +80,6 @@ export default function WearablePicker(props) {
             headers: { 'Content-Type': 'application/json', 'SessionID': cookies.get('SessionID') },
         };
 
-        console.log(requestOptions.headers);
         var url = "API/Persons/Clothes/" + props.types
             + "?PersonID=" + cookies.get("PersonID")
             + "&Sort=" + sortOrder
@@ -92,8 +87,6 @@ export default function WearablePicker(props) {
             + (subType === -1 ? "" : "&Type=" + subType)
             + (washState === -1 ? "" : "&State=" + washState)
             + "&Skip=" + displayedItems
-
-        console.log(url)
 
         fetch(url,
             requestOptions)
@@ -105,7 +98,6 @@ export default function WearablePicker(props) {
                 }
                 return response.json()
             }).then(data => {
-                console.log(data)
                 if (data === undefined) { } else {
                     setCollection(collection.concat(data))
                     setDisplayedItems(displayedItems + 20);
@@ -115,9 +107,6 @@ export default function WearablePicker(props) {
     }
 
     const handleSelect = (wearable, wasSelected) => (event) => {
-
-        console.log("selected " + wearable.name)
-        console.log("WasSelected? " + wasSelected)
 
         if(!props.isCollection){
             if(wasSelected) {props.setSelected(undefined)} 
@@ -130,7 +119,6 @@ export default function WearablePicker(props) {
 
             if(wasSelected) {selected.splice(selected.indexOf(wearable.id),1)} 
             else { selected.push(wearable.id)}
-            console.log(selected)
             props.setSelected(selected) //Refresh
         }
         

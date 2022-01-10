@@ -83,8 +83,6 @@ export default function WearableEditor(props) {
             url = "API/Clothes/" + props.type + "?PersonID=" + cookies.get('PersonID')
         }
 
-        console.log(url)
-
         requestOptions = {
             ...requestOptions,
             headers: { 'Content-Type': 'application/json', 'SessionID': cookies.get('SessionID') },

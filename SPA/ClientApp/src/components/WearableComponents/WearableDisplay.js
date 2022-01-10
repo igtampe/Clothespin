@@ -136,8 +136,6 @@ export default function WearableDisplay(props) {
             + (washState === -1 ? "" : "&State=" + washState)
             + "&Skip=" + displayedItems
 
-        console.log(url)
-
         fetch(url,
             requestOptions)
             .then(response => {

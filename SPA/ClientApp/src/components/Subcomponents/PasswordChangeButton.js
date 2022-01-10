@@ -56,14 +56,11 @@ export default function PasswordChangeButton(props) {
             })
         };
 
-        console.log(requestOptions.body);
-
         fetch("API/Users", requestOptions)
             .then(response => {
                 setInProgress(false);
                 return response.text()
             }).then(data => {
-                console.log(data)
                 if (data !== "") {
                     setResult({
                         severity:"danger",
