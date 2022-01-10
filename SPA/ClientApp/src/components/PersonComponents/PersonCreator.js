@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
-import { Dialog, DialogActions, DialogContent, DialogTitle, Snackbar, TextField } from "@material-ui/core";
+import { Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@material-ui/core";
 import { CircularProgress } from "@material-ui/core";
-import { Alert } from "reactstrap";
 import Cookies from 'universal-cookie';
+import AlertSnackbar from "../AlertSnackbar";
 
 const cookies = new Cookies();
 
@@ -16,11 +16,7 @@ export default function PersonCreator(props) {
 
     const [Populated, setPopulated] = useState(false);
 
-    const [result, setResult] = useState({
-        severity: "success",
-        text: "idk"
-    })
-
+    const [result, setResult] = useState({ severity: "success", text: "idk" })
     const [SnackOpen, setSnackOpen] = useState(false);
 
     const handleCreatePerson = (event) => {
@@ -59,16 +55,13 @@ export default function PersonCreator(props) {
             };    
         }
 
-        console.log(requestOptions);
 
         fetch("API/Persons", requestOptions)
             .then(response => {
                 setInProgress(false);
-                console.log(response.status)
                 if ( !response.ok && response.status !== 201) { return { "error": response.text() } }
                 return response.json()
             }).then(data => {
-                console.log(data)
                 if (data.error !== undefined) {
                     setResult({
                         severity: "danger",
@@ -134,11 +127,7 @@ export default function PersonCreator(props) {
                 </DialogActions>
             </Dialog>
 
-            <Snackbar open={SnackOpen} autoHideDuration={6000} onClose={() => setSnackOpen(false)}>
-                <Alert onClose={() => setSnackOpen(false)} color={result.severity} sx={{ width: '100%' }}>
-                    {result.text}
-                </Alert>
-            </Snackbar>
+            <AlertSnackbar open={SnackOpen} setOpen={setSnackOpen} result={result}/>
 
         </React.Fragment>
     );
