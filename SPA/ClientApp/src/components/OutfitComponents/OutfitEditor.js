@@ -2,6 +2,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Gri
 import React, { useState } from "react";
 import { Alert } from "reactstrap";
 import Cookies from 'universal-cookie';
+import PicturePicker from "../PicturePicker";
 import WearableMicroCard from "../WearableComponents/WearableMicroCard";
 
 const cookies = new Cookies();
@@ -11,6 +12,8 @@ export default function OutfitEditor(props) {
     const [name, setName] = useState("");
     const [imageURL, setImageURL] = useState("");
     const [description, setDescription] = useState("")
+
+    const [pickerOpen, setPickerOpen] = useState(false)
 
     const [populated, setPopulated] = useState(false);
 
@@ -38,8 +41,6 @@ export default function OutfitEditor(props) {
                 break;
             }
         }
-
-        console.log(IndexOf)
 
         //If it was not found just return
         if (IndexOf === -1) { return; }
@@ -97,8 +98,6 @@ export default function OutfitEditor(props) {
             //url = "API/Clothes/" + props.type + "?PersonID=" + cookies.get('PersonID')
         }
 
-        console.log(url)
-
         requestOptions = {
             ...requestOptions,
             headers: { 'Content-Type': 'application/json', 'SessionID': cookies.get('SessionID') },
@@ -138,7 +137,9 @@ export default function OutfitEditor(props) {
                         {props.vertical ?
                             <tr>
                                 <td style={{ textAlign: 'center' }}>
-                                    <img src={imageURL === "" ? "/images/outfit.png" : imageURL} alt="Profile" width="200px" />
+                                <Button onClick={()=>setPickerOpen(true)}>
+                                        <img src={imageURL === "" ? "/images/outfit.png" : imageURL} alt="Profile" width="200px" /> 
+                                    </Button>
                                     <br />
                                 </td>
                             </tr>
@@ -150,7 +151,9 @@ export default function OutfitEditor(props) {
                             {
                                 props.vertical ? "" :
                                     <td rowSpan="3" style={{ width: '225px' }}>
-                                        <img src={imageURL === "" ? "/images/outfit.png" : imageURL} alt="Profile" width="200px" style={{ marginLeft: "25px", marginRight: "10px" }} />
+                                        <Button style={{ marginLeft: "25px", marginRight: "10px" }} onClick={()=>setPickerOpen(true)}>
+                                        <img src={imageURL === "" ? "/images/outfit.png" : imageURL} alt="Profile" width="200px" />
+                                        </Button>
                                     </td>
                             }
                         </tr>
@@ -217,6 +220,8 @@ export default function OutfitEditor(props) {
                     {result.text}
                 </Alert>
             </Snackbar>
+
+            <PicturePicker open={pickerOpen} setOpen={setPickerOpen} imageURL={imageURL} setImageURL={setImageURL} defaultImage={"/images/outfit.png"}/>
 
         </React.Fragment>
     );
