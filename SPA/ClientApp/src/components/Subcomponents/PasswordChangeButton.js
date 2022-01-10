@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
-import { Snackbar } from "@material-ui/core";
-import { Dialog, DialogActions, DialogContent, DialogTitle } from "@material-ui/core";
-import TextField from '@material-ui/core/TextField';
-import { CircularProgress } from "@material-ui/core";
+import { Dialog, DialogActions, DialogContent, DialogTitle, Button, CircularProgress, TextField } from "@material-ui/core";
 import Cookies from 'universal-cookie';
-import { Alert } from "reactstrap";
+import AlertSnackbar from "../AlertSnackbar";
 
 const cookies = new Cookies();
 
@@ -27,8 +23,8 @@ export default function PasswordChangeButton(props) {
     const handleChangePass = (event) => {
         if (OldPassword === "" || NewPassword === "") {
             setResult({
-                severity:"danger",
-                text:"Old and new passwords must not be empty"
+                severity: "danger",
+                text: "Old and new passwords must not be empty"
             })
             setSnackOpen(true);
             return;
@@ -36,8 +32,8 @@ export default function PasswordChangeButton(props) {
 
         if (!PassMatch) {
             setResult({
-                severity:"danger",
-                text:"Passwords do not match"
+                severity: "danger",
+                text: "Passwords do not match"
             })
             setSnackOpen(true);
             return;
@@ -63,15 +59,15 @@ export default function PasswordChangeButton(props) {
             }).then(data => {
                 if (data !== "") {
                     setResult({
-                        severity:"danger",
-                        text:data
+                        severity: "danger",
+                        text: data
                     })
                     setSnackOpen(true);
                 } else {
                     //s u c c e s s
                     setResult({
-                        severity:"success",
-                        text:"Password changed successfully"
+                        severity: "success",
+                        text: "Password changed successfully"
                     })
                     setSnackOpen(true);
                     setPassOpen(false);
@@ -99,7 +95,7 @@ export default function PasswordChangeButton(props) {
                         style={{ marginTop: "5px", marginBottom: "5px" }} /><br />
                 </DialogContent>
                 <DialogActions>
-                    {InProgress ? <CircularProgress size="20px"/> : <>
+                    {InProgress ? <CircularProgress size="20px" /> : <>
                         <Button onClick={handleChangePass}>OK</Button>
                         <Button onClick={() => setPassOpen(false)}>Cancel</Button>
                     </>
@@ -107,11 +103,7 @@ export default function PasswordChangeButton(props) {
                 </DialogActions>
             </Dialog>
 
-            <Snackbar open={SnackOpen} autoHideDuration={6000} onClose={()=>setSnackOpen(false)}>
-                <Alert onClose={()=>setSnackOpen(false)} color={result.severity} sx={{ width: '100%' }}>
-                    {result.text}
-                </Alert>
-            </Snackbar>
+            <AlertSnackbar open={SnackOpen} setOpen={setSnackOpen} result={result} />
 
         </React.Fragment>
     );

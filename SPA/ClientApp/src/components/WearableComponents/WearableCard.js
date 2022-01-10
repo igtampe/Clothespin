@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import {
     IconButton, Accordion, AccordionDetails, AccordionSummary, FormControl, InputLabel, Select, MenuItem,
-    Dialog, DialogTitle, DialogContent, DialogActions, Snackbar, Button
+    Dialog, DialogTitle, DialogContent, DialogActions, Button
 } from "@material-ui/core";
 import { ExpandMore, Edit, Delete } from '@material-ui/icons'
 import Cookies from 'universal-cookie';
-import { Alert } from "reactstrap";
 import WearableEditor from "./WearableEditor";
+import AlertSnackbar from "../AlertSnackbar";
 
 const cookies = new Cookies();
 
@@ -192,11 +192,7 @@ export default function WearableCard(props) {
                 </DialogActions>
             </Dialog>
 
-            <Snackbar open={SnackOpen} autoHideDuration={6000} onClose={() => setSnackOpen(false)}>
-                <Alert onClose={() => setSnackOpen(false)} color={result.severity} sx={{ width: '100%' }}>
-                    {result.text}
-                </Alert>
-            </Snackbar>
+            <AlertSnackbar open={SnackOpen} setOpen={setSnackOpen} result={result}/>
 
             <WearableEditor type={props.type} types={props.types} wearable={Wearable} setWearable={setWearable}
                 subtypes={props.subtypes} open={editorOpen} setOpen={setEditorOpen} sizeable={props.sizeable} />

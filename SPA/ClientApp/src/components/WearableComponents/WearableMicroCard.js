@@ -6,6 +6,7 @@ import {
 import { ExpandMore } from '@material-ui/icons'
 import Cookies from 'universal-cookie';
 import { Alert } from "reactstrap";
+import AlertSnackbar from "../AlertSnackbar";
 
 const cookies = new Cookies();
 
@@ -115,11 +116,7 @@ export default function WearableMicroCard(props) {
                 </AccordionDetails>
             </Accordion>
 
-            <Snackbar open={SnackOpen} autoHideDuration={6000} onClose={() => setSnackOpen(false)}>
-                <Alert onClose={() => setSnackOpen(false)} color={result.severity} sx={{ width: '100%' }}>
-                    {result.text}
-                </Alert>
-            </Snackbar>
+            <AlertSnackbar open={SnackOpen} setOpen={setSnackOpen} result={result}/>
 
         </React.Fragment>
     );

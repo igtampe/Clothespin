@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, Grid, Divider, Accordion, AccordionSummary, AccordionDetails, Box, CircularProgress, Snackbar } from "@material-ui/core";
+import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, Grid, Divider, Accordion, AccordionSummary, AccordionDetails, Box, CircularProgress } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
 import WearableLabel from "../WearableComponents/WearableLabel";
 import WearablePicker from "../WearableComponents/WearablePicker";
 import Cookies from "universal-cookie";
 import OutfitCard from "../OutfitComponents/OutfitCard";
-import { Alert } from "reactstrap";
+import AlertSnackbar from "../AlertSnackbar";
 
 const cookies = new Cookies();
 
@@ -403,11 +403,7 @@ export default function LogCreator(props) {
 
             </Dialog>
 
-            <Snackbar open={SnackOpen} autoHideDuration={6000} onClose={() => setSnackOpen(false)}>
-                <Alert onClose={() => setSnackOpen(false)} color={result.severity} sx={{ width: '100%' }}>
-                    {result.text}
-                </Alert>
-            </Snackbar>
+            <AlertSnackbar open={SnackOpen} setOpen={setSnackOpen} result={result}/>
 
             <Dialog fullWidth maxWidth="sm" open={creatorOpen} onClose={()=>{setCreatorOpen(false)}}>
                 <DialogTitle>Creating {name}</DialogTitle>

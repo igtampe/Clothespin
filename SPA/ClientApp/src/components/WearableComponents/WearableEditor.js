@@ -1,7 +1,11 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, Grid, InputLabel, MenuItem, Select, Snackbar, TextField } from "@material-ui/core";
 import React, { useState } from "react";
-import { Alert } from "reactstrap";
+import {
+    Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, Grid,
+    InputLabel, MenuItem, Select, TextField
+} from "@material-ui/core";
 import Cookies from 'universal-cookie';
+import AlertSnackbar from "../AlertSnackbar";
+import PicturePicker from "../PicturePicker";
 
 const cookies = new Cookies();
 
@@ -15,6 +19,8 @@ export default function WearableEditor(props) {
     const [size, setSize] = useState("");
     const [region, setRegion] = useState("US");
     const [description, setDescription] = useState("")
+
+    const [pickerOpen, setPickerOpen] = useState(false)
 
     const [populated, setPopulated] = useState(false);
 
@@ -62,7 +68,7 @@ export default function WearableEditor(props) {
 
     const handleOK = (event) => {
 
-        if(name===""){
+        if (name === "") {
             setResult({
                 severity: "danger",
                 text: "Name cannot be empty!"
@@ -118,8 +124,8 @@ export default function WearableEditor(props) {
                         text: name + " has been " + (props.wearable ? "updated" : "created") + "!"
                     })
 
-                    if(props.setWearables) {props.setWearables(undefined)}
-                    if(props.setWearable) {props.setWearable(data)}
+                    if (props.setWearables) { props.setWearables(undefined) }
+                    if (props.setWearable) { props.setWearable(data) }
 
                     setSnackOpen(true);
 
@@ -141,12 +147,10 @@ export default function WearableEditor(props) {
                             <td>
                                 <TextField label="Name" value={name} onChange={(event) => setName(event.target.value)} fullWidth
                                     style={{ marginTop: "5px", marginBottom: "5px" }} />                            </td>
-                            <td rowSpan="2" style={{ width: "135px" }}><img src={imageURL === "" ? "/images/" + props.type + ".png" : imageURL} alt="Profile" width="100px" style={{ marginLeft: "25px", marginRight: "10px" }} /></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <TextField label="Image URL" value={imageURL} onChange={(event) => setImageURL(event.target.value)} fullWidth
-                                    style={{ marginTop: "5px", marginBottom: "5px" }} />
+                            <td rowSpan="2" style={{ width: "135px" }}>
+                                <Button onClick={()=>setPickerOpen(true)}>
+                                    <img src={imageURL === "" ? "/images/" + props.type + ".png" : imageURL} alt="Profile" width="100px" style={{ marginLeft: "25px", marginRight: "10px" }} />
+                                </Button>
                             </td>
                         </tr>
                     </table>
@@ -192,11 +196,9 @@ export default function WearableEditor(props) {
                 </DialogActions>
             </Dialog>
 
-            <Snackbar open={SnackOpen} autoHideDuration={6000} onClose={() => setSnackOpen(false)}>
-                <Alert onClose={() => setSnackOpen(false)} color={result.severity} sx={{ width: '100%' }}>
-                    {result.text}
-                </Alert>
-            </Snackbar>
+            <AlertSnackbar open={SnackOpen} setOpen={setSnackOpen} result={result} />
+
+            <PicturePicker open={pickerOpen} setOpen={setPickerOpen} imageURL={imageURL} setImageURL={setImageURL} defaultImage={"/images/" + props.type + ".png"}/>
 
         </React.Fragment>
     );

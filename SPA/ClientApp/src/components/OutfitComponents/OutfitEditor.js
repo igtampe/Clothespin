@@ -1,7 +1,7 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Grid, Snackbar, TextField } from "@material-ui/core";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Grid, TextField } from "@material-ui/core";
 import React, { useState } from "react";
-import { Alert } from "reactstrap";
 import Cookies from 'universal-cookie';
+import AlertSnackbar from "../AlertSnackbar";
 import PicturePicker from "../PicturePicker";
 import WearableMicroCard from "../WearableComponents/WearableMicroCard";
 
@@ -159,12 +159,6 @@ export default function OutfitEditor(props) {
                         </tr>
                         <tr>
                             <td>
-                                <TextField label="Image URL" value={imageURL} onChange={(event) => setImageURL(event.target.value)} fullWidth
-                                    style={{ marginTop: "5px", marginBottom: "5px" }} />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
                                 <TextField label="Description/Notes" value={description} onChange={(event) => setDescription(event.target.value)} fullWidth multiline
                                     style={{ marginTop: "5px", marginBottom: "5px" }} maxRows={3} minRows={3} variant="filled" color="secondary" />
                             </td>
@@ -215,11 +209,7 @@ export default function OutfitEditor(props) {
                 </DialogActions>
             </Dialog>
 
-            <Snackbar open={SnackOpen} autoHideDuration={6000} onClose={() => setSnackOpen(false)}>
-                <Alert onClose={() => setSnackOpen(false)} color={result.severity} sx={{ width: '100%' }}>
-                    {result.text}
-                </Alert>
-            </Snackbar>
+            <AlertSnackbar open={SnackOpen} setOpen={setSnackOpen} result={result}/>
 
             <PicturePicker open={pickerOpen} setOpen={setPickerOpen} imageURL={imageURL} setImageURL={setImageURL} defaultImage={"/images/outfit.png"}/>
 

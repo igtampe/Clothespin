@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {
   Dialog, DialogActions, DialogContent, DialogTitle,
-  CircularProgress, Grid, Button, TextField, Box
+  CircularProgress, Button, TextField, Box
 } from "@material-ui/core";
 import Cookies from 'universal-cookie';
 import AlertSnackbar from "./AlertSnackbar";
@@ -47,7 +47,7 @@ export default function PicturePicker(props) {
           if(data.includes('-')){
             //Assume we got an ID
             props.setImageURL('API/Images/' + data.substring(1).substring(0,data.length-2))
-            props.setOpen(false)    
+            handleClose();
             setResult({severity:'success', text:'Image uploaded!'})
             setSnackOpen(true)
           } else {
@@ -70,7 +70,7 @@ export default function PicturePicker(props) {
 
     if(mode===0){
       props.setImageURL(tempImageURL)
-      props.setOpen(false)
+      handleClose();
     } else if (mode===1){ handleUpload();}
 
   }

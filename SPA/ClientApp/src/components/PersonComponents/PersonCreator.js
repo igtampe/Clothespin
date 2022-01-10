@@ -4,6 +4,7 @@ import { Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@m
 import { CircularProgress } from "@material-ui/core";
 import Cookies from 'universal-cookie';
 import AlertSnackbar from "../AlertSnackbar";
+import PicturePicker from "../PicturePicker";
 
 const cookies = new Cookies();
 
@@ -13,6 +14,8 @@ export default function PersonCreator(props) {
     const [name, setName] = useState(props.person===undefined ? "" : props.person.Name);
     const [imageURL, setImageURL] = useState(props.person===undefined ? "" : props.person.imageURL);
     const [InProgress, setInProgress] = useState(false);
+
+    const [pickerOpen, setPickerOpen] = useState(false)
 
     const [Populated, setPopulated] = useState(false);
 
@@ -110,12 +113,10 @@ export default function PersonCreator(props) {
                             <td>
                                 <TextField label="Person Name" value={name} onChange={(event) => setName(event.target.value)} fullWidth
                                     style={{ marginTop: "5px", marginBottom: "5px" }} />                            </td>
-                            <td rowSpan="2"><img src={imageURL === "" ? "/images/blankperson.png" : imageURL} alt="Profile" width="100px" style={{ marginLeft: "25px", marginRight: "10px" }} /></td>
-                        </tr>
-                        <tr>
-                            <td>    
-                                <TextField label="Image URL" value={imageURL} onChange={(event) => setImageURL(event.target.value)} fullWidth
-                                    style={{ marginTop: "5px", marginBottom: "5px" }} />
+                            <td rowSpan="2">
+                                <Button onClick={()=>setPickerOpen(true)}>
+                                    <img src={imageURL === "" ? "/images/blankperson.png" : imageURL} alt="Profile" width="100px" style={{ marginLeft: "25px", marginRight: "10px" }} />
+                                </Button>
                             </td>
                         </tr>
                     </table>
@@ -128,6 +129,8 @@ export default function PersonCreator(props) {
             </Dialog>
 
             <AlertSnackbar open={SnackOpen} setOpen={setSnackOpen} result={result}/>
+
+            <PicturePicker open={pickerOpen} setOpen={setPickerOpen} imageURL={imageURL} setImageURL={setImageURL} defaultImage={"/images/Blankperson.png"}/>
 
         </React.Fragment>
     );

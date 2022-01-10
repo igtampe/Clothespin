@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import {
     IconButton, Accordion, AccordionDetails, AccordionSummary,
-    Dialog, DialogTitle, DialogContent, DialogActions, Snackbar, Button, Grid, Divider
+    Dialog, DialogTitle, DialogContent, DialogActions, Button, Grid, Divider
 } from "@material-ui/core";
 import { ExpandMore, Edit, Delete } from '@material-ui/icons'
 import Cookies from 'universal-cookie';
-import { Alert } from "reactstrap";
 import OutfitEditor from "./OutfitEditor";
 import WearableLabel from "../WearableComponents/WearableLabel";
+import AlertSnackbar from "../AlertSnackbar";
 
 const cookies = new Cookies();
 
@@ -142,11 +142,7 @@ export default function OutfitCard(props) {
                 </DialogActions>
             </Dialog>
 
-            <Snackbar open={SnackOpen} autoHideDuration={6000} onClose={() => setSnackOpen(false)}>
-                <Alert onClose={() => setSnackOpen(false)} color={result.severity} sx={{ width: '100%' }}>
-                    {result.text}
-                </Alert>
-            </Snackbar>
+            <AlertSnackbar open={SnackOpen} setOpen={setSnackOpen} result={result}/>
 
             <OutfitEditor outfit={Outfit} setOutfit={setOutfit} open={editorOpen} setOpen={setEditorOpen} sizeable={props.sizeable} vertical={props.vertical} />
 

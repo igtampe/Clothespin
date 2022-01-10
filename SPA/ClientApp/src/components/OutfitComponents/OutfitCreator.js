@@ -1,10 +1,11 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Snackbar, TextField } from "@material-ui/core";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, TextField } from "@material-ui/core";
 import React, { useState } from "react";
-import { Alert } from "reactstrap";
 import Cookies from 'universal-cookie';
 import { ExpandMore } from '@material-ui/icons'
 import WearablePicker from "../WearableComponents/WearablePicker";
 import WearableLabel from "../WearableComponents/WearableLabel";
+import AlertSnackbar from "../AlertSnackbar";
+import PicturePicker from "../PicturePicker";
 
 const cookies = new Cookies();
 
@@ -13,6 +14,8 @@ export default function OutfitCreator(props) {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("")
     const [imageURL, setImageURL] = useState("")
+
+    const [pickerOpen, setPickerOpen] = useState(false)
 
     const [shirt, setShirt] = useState(undefined)
     const [pants, setPants] = useState(undefined)
@@ -150,7 +153,9 @@ export default function OutfitCreator(props) {
                             props.vertical ?
                             <tr>
                                 <td style={{ width: "100%", textAlign:'center'}}>
-                                    <img src={imageURL === "" ? "/images/outfit.png" : imageURL} alt="Profile" width="200px" style={{ marginLeft: "25px", marginRight: "10px" }} />
+                                    <Button onClick={()=>setPickerOpen(true)}>
+                                        <img src={imageURL === "" ? "/images/outfit.png" : imageURL} alt="Profile" width="200px" style={{ marginLeft: "25px", marginRight: "10px" }} /> 
+                                    </Button>
                                 </td> 
                             </tr>
                         : "" }
@@ -162,16 +167,11 @@ export default function OutfitCreator(props) {
                             {
                                 props.vertical ? "" :
                                     <td rowSpan="3" style={{ width: "135px" }}>
-                                        <img src={imageURL === "" ? "/images/outfit.png" : imageURL} alt="Profile" width="200px" style={{ marginLeft: "25px", marginRight: "10px" }} />
+                                        <Button onClick={()=>setPickerOpen(true)}>
+                                            <img src={imageURL === "" ? "/images/outfit.png" : imageURL} alt="Profile" width="200px" style={{ marginLeft: "25px", marginRight: "10px" }} />
+                                        </Button>
                                     </td>
-
                             }
-                        </tr>
-                        <tr>
-                            <td>
-                                <TextField label="Image URL" value={imageURL} onChange={(event) => setImageURL(event.target.value)} fullWidth
-                                    style={{ marginTop: "5px", marginBottom: "5px" }} />
-                            </td>
                         </tr>
                         <tr>
                             <td>
@@ -212,11 +212,8 @@ export default function OutfitCreator(props) {
                 </DialogActions>
             </Dialog>
 
-            <Snackbar open={SnackOpen} autoHideDuration={6000} onClose={() => setSnackOpen(false)}>
-                <Alert onClose={() => setSnackOpen(false)} color={result.severity} sx={{ width: '100%' }}>
-                    {result.text}
-                </Alert>
-            </Snackbar>
+            <PicturePicker open={pickerOpen} setOpen={setPickerOpen} imageURL={imageURL} setImageURL={setImageURL} defaultImage={"/images/outfit.png"}/>
+            <AlertSnackbar open={SnackOpen} setOpen={setSnackOpen} result={result}/>
 
         </React.Fragment>
     );
