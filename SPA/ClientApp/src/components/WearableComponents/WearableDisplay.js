@@ -31,7 +31,7 @@ export function SubSelect(props) {
             props.setSubType(event.target.value)
             props.setCollection(undefined)
         }}>
-            <MenuItem value={-1}>All Subtypes</MenuItem>
+            <MenuItem value={-1}>All Subtypes</MenuItem>    
             {props.subTypes.map((element, index) => <MenuItem value={index}>{element.replace('_', ' ')}</MenuItem>)}
         </Select></FormControl>)
 }

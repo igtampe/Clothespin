@@ -2,10 +2,6 @@
 using Igtampe.Clothespin.Common;
 using Igtampe.Clothespin.Data;
 using Igtampe.ChopoSessionManager;
-using Igtampe.Clothespin.API.Requests;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Net.Http.Headers;
-using Microsoft.AspNetCore.WebUtilities;
 
 namespace Igtampe.Clothespin.API.Controllers {
     
